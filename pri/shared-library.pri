@@ -1,0 +1,4 @@
+QT -= gui
+
+TEMPLATE = lib
+DEFINES += SHAREDLIB_LIBRARY

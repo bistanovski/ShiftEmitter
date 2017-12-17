@@ -1,0 +1,17 @@
+contains(DEFINES, SHOW_STATUS) {
+    message("")
+    message("===============================================")
+    message("====== " $${TARGET} " ======")
+    message("> Qt: " $$[QT_VERSION] " @ " $$[QT_INSTALL_PREFIX])
+    message("> DEFINES: " $${DEFINES})
+    message("> SRCS: " $${SRC_PATH})
+    message("> PRI: " $${PRI_PATH})
+    message("> ROOT_BUILD: " $${ROOT_BUILD})
+    message("> CONFIG: " $${CONFIG})
+    message("> QT MODULES: " $${QT})
+    message("> SUBDIRS: " $${SUBDIRS})
+    message("> INCLUDEPATH: " $${INCLUDEPATH})
+    message("> DEPENDPATH: " $${DEPENDPATH})
+    message("> CXXFLAGS: " $${QMAKE_CXXFLAGS})
+    message("")
+}
