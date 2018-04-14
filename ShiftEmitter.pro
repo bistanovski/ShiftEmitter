@@ -3,13 +3,13 @@ include($$PRI_PATH/defines.pri)
 TEMPLATE = subdirs
 CONFIG  += ordered
 
-SUBDIRS += $$SRC_PATH/receptor
-receptor.subdir  = $$SRC_PATH/receptor
+SUBDIRS += $$SRC_PATH/receptor-bridge
+receptor-bridge.subdir  = $$SRC_PATH/receptor-bridge
 
 SUBDIRS += $$SRC_PATH/simulator
 simulator.subdir  = $$SRC_PATH/simulator
-simulator.depends = receptor
+simulator.depends = receptor-bridge
 
 SUBDIRS += $$SRC_PATH/emitter
 emitter.subdir   = $$SRC_PATH/emitter
-emitter.depends  = receptor simulator
+emitter.depends  = receptor-bridge simulator

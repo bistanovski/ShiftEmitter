@@ -1,3 +1,4 @@
+include($$PRI_PATH/defines.pri)
 include($$PRI_PATH/platform.pri)
 
 QT += quick
@@ -7,14 +8,13 @@ TARGET   = ShiftEmitter
 DESTDIR  = $${ROOT_BUILD}
 
 SOURCES += main.cpp
+INCLUDEPATH += $$SRC_PATH
 
 #Simulator
-INCLUDEPATH += $$SRC_PATH/simulator
 LIBS += -L$${ROOT_BUILD}/libs -lsimulator
 
 #Receptor
-INCLUDEPATH += $$SRC_PATH/receptor
-LIBS += -L$${ROOT_BUILD}/libs -lreceptor
+LIBS += -L$${ROOT_BUILD}/libs -lreceptor-bridge
 
 RESOURCES += \
     resources/res.qrc

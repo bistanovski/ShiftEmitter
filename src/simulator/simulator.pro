@@ -1,3 +1,4 @@
+include($$PRI_PATH/defines.pri)
 include($$PRI_PATH/platform.pri)
 include($$PRI_PATH/shared-library.pri)
 
