@@ -2,10 +2,11 @@
 
 #include <QDebug>
 
-DummyReceptor::DummyReceptor(QObject *parent) : Receptor(parent),
+DummyReceptor::DummyReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent),
     m_dummySensor(m_dummyType)
 {
     qDebug() << "DummyReceptor";
+    m_dummySensor.setIdentifier(identifier);
 }
 
 DummyReceptor::~DummyReceptor()

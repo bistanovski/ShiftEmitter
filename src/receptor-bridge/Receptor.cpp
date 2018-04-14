@@ -6,3 +6,8 @@ Receptor::Receptor(QObject *parent) : QObject(parent)
 {
 
 }
+
+Receptor::~Receptor()
+{
+
+}

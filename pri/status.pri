@@ -3,6 +3,7 @@ contains(DEFINES, SHOW_STATUS) {
     message("===============================================")
     message("====== " $${TARGET} " ======")
     message("> Qt: " $$[QT_VERSION] " @ " $$[QT_INSTALL_PREFIX])
+    message("> Qt Libs: " $$[QT_INSTALL_LIBS])
     message("> DEFINES: " $${DEFINES})
     message("> SRCS: " $${SRC_PATH})
     message("> PRI: " $${PRI_PATH})
@@ -12,6 +13,7 @@ contains(DEFINES, SHOW_STATUS) {
     message("> SUBDIRS: " $${SUBDIRS})
     message("> INCLUDEPATH: " $${INCLUDEPATH})
     message("> DEPENDPATH: " $${DEPENDPATH})
+    message("> LIBS: " $${LIBS})
     message("> CXXFLAGS: " $${QMAKE_CXXFLAGS})
     message("")
 }

@@ -40,6 +40,7 @@ class Receptor : public QObject
 
 public:
     explicit Receptor(QObject *parent = nullptr);
+    virtual ~Receptor();
 
     virtual QByteArray getType() const = 0;
     virtual QByteArray getIdeintifier() const = 0;

@@ -2,9 +2,10 @@
 
 #include <QDebug>
 
-CompassReceptor::CompassReceptor(QObject *parent) : Receptor(parent)
+CompassReceptor::CompassReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
 {
     qDebug() << "CompassReceptor";
+    m_compass.setIdentifier(identifier);
 }
 
 CompassReceptor::~CompassReceptor()

@@ -1,4 +1,4 @@
-#include "ReceptorNetwork.hpp"
+#include "ReceptorBridge.hpp"
 
 #include <QDebug>
 #include <QSensor>
@@ -6,17 +6,17 @@
 #include "Receptor.hpp"
 #include "ReceptorFactory.hpp"
 
-ReceptorNetwork::ReceptorNetwork(QObject *parent) : QObject(parent)
+ReceptorBridge::ReceptorBridge(QObject *parent) : QObject(parent)
 {
 
 }
 
-ReceptorNetwork::~ReceptorNetwork()
+ReceptorBridge::~ReceptorBridge()
 {
 
 }
 
-std::vector<ReceptorPtr> ReceptorNetwork::fetchAllReceptors()
+std::vector<ReceptorPtr> ReceptorBridge::fetchAllReceptors()
 {
     std::vector<ReceptorPtr> result;
     auto sensorTypes = QSensor::sensorTypes();
@@ -26,7 +26,7 @@ std::vector<ReceptorPtr> ReceptorNetwork::fetchAllReceptors()
         qDebug() << "Found type" << type;
         for (const auto &identifier : QSensor::sensorsForType(type)) {
             qDebug() << "Found identifier" << identifier;
-            result.push_back(ReceptorFactory::createReceptor(type));
+            result.push_back(ReceptorFactory::createReceptor(type, identifier));
         }
     }
 

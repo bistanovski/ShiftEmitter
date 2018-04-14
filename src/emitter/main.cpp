@@ -5,7 +5,7 @@
 #include <QDebug>
 
 #include "receptor-bridge/Receptor.hpp"
-#include "receptor-bridge/ReceptorNetwork.hpp"
+#include "receptor-bridge/ReceptorBridge.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
         qWarning() << "Root QML object is not created";
     }
 
-    const auto receptors = ReceptorNetwork::fetchAllReceptors();
+    const auto receptors = ReceptorBridge::fetchAllReceptors();
     cData.setFoundSensors(static_cast<int>(receptors.size()));
 
     for(const auto &receptor : receptors)

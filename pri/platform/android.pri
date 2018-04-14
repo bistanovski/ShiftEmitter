@@ -1,1 +1,3 @@
 DEFINES += ANDROID
+
+QT += androidextras

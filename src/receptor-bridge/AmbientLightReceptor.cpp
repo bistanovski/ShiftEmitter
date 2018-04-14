@@ -2,9 +2,10 @@
 
 #include <QDebug>
 
-AmbientLightReceptor::AmbientLightReceptor(QObject *parent) : Receptor(parent)
+AmbientLightReceptor::AmbientLightReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
 {
     qDebug() << "AmbientLightReceptor";
+    m_ambientLightSensor.setIdentifier(identifier);
 }
 
 AmbientLightReceptor::~AmbientLightReceptor()

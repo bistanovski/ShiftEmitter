@@ -2,9 +2,10 @@
 
 #include <QDebug>
 
-LightReceptor::LightReceptor(QObject *parent) : Receptor(parent)
+LightReceptor::LightReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
 {
     qDebug() << "LightReceptor";
+    m_lightSensor.setIdentifier(identifier);
 }
 
 LightReceptor::~LightReceptor()

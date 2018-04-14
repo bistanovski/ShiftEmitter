@@ -9,7 +9,7 @@ class LightReceptor : public Receptor
     Q_OBJECT
 
 public:
-    LightReceptor(QObject *parent = nullptr);
+    LightReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~LightReceptor();
 
     QByteArray getType() const override;

@@ -2,9 +2,10 @@
 
 #include <QDebug>
 
-OrientationReceptor::OrientationReceptor(QObject *parent) : Receptor(parent)
+OrientationReceptor::OrientationReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
 {
     qDebug() << "OrientationReceptor";
+    m_orientationSensor.setIdentifier(identifier);
 }
 
 OrientationReceptor::~OrientationReceptor()

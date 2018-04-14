@@ -9,7 +9,7 @@ class DummyReceptor : public Receptor
     Q_OBJECT
 
 public:
-    DummyReceptor(QObject *parent = nullptr);
+    DummyReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~DummyReceptor();
 
     QByteArray getType() const override;
