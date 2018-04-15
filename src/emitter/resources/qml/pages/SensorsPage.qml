@@ -30,29 +30,35 @@ ShiftRayPage {
             id: numberDelegate
 
             Rectangle {
-                id: wrapper
-
                 width: gridView.cellWidth - 10
                 height: width
-
                 anchors.margins: 10
+                radius: 10
 
                 gradient: Gradient {
                     GradientStop { position: 0.0; color: "#38ef7d" }
                     GradientStop { position: 0.5; color: "#11998e" }
                 }
 
-                Text {
+                Image {
+                    id: receptorImage
+                    source: "qrc:/images/" + friendlyName + ".png"
                     anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
+                }
+
+                Text {
+                    anchors.top: receptorImage.bottom
+                    anchors.topMargin: 10
+                    anchors.horizontalCenter: parent.horizontalCenter
                     font.pixelSize: 15
-                    text: receptorType
+                    text: friendlyName
                     color: "white"
                     font.italic: true
                 }
 
                 MouseArea {
                     anchors.fill: parent
-
                     onClicked: {
                         console.log('Got: ' , receptorType)
                     }

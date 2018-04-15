@@ -8,5 +8,13 @@
         <file>qml/MainSwipeView.qml</file>
         <file>qml/MainTabBar.qml</file>
         <file>qml/pages/ShiftRayPage.qml</file>
+        <file>images/Accelerometer.png</file>
+        <file>images/AmbientLight.png</file>
+        <file>images/Proximity.png</file>
+        <file>images/Compass.png</file>
+        <file>images/Magnetometer.png</file>
+        <file>images/Tilt.png</file>
+        <file>images/Orientation.png</file>
+        <file>images/Light.png</file>
     </qresource>
 </RCC>
