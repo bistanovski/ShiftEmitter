@@ -7,6 +7,7 @@ DummyReceptor::DummyReceptor(const QByteArray &identifier, QObject *parent) : Re
 {
     qDebug() << "DummyReceptor";
     m_dummySensor.setIdentifier(identifier);
+    emit identifierChanged();
 }
 
 DummyReceptor::~DummyReceptor()
@@ -19,7 +20,7 @@ QByteArray DummyReceptor::getType() const
     return m_dummySensor.type();
 }
 
-QByteArray DummyReceptor::getIdeintifier() const
+QByteArray DummyReceptor::getIdentifier() const
 {
     return m_dummySensor.identifier();
 }

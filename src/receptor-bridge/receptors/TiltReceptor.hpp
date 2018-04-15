@@ -6,12 +6,14 @@
 
 class TiltReceptor : public Receptor
 {
+    Q_OBJECT
+
 public:
-    TiltReceptor(const QByteArray &identifier, QObject *parent = nullptr);
+    explicit TiltReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~TiltReceptor();
 
     QByteArray getType() const override;
-    QByteArray getIdeintifier() const override;
+    QByteArray getIdentifier() const override;
 
     QSensorReading *reading() const override;
 

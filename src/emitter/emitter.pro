@@ -1,13 +1,12 @@
 include($$PRI_PATH/defines.pri)
 include($$PRI_PATH/platform.pri)
+include(sources.pri)
 
 QT += quick
 
 TEMPLATE = app
 TARGET   = ShiftEmitter
 DESTDIR  = $${ROOT_BUILD}
-
-SOURCES += main.cpp
 INCLUDEPATH += $$SRC_PATH
 
 #Simulator

@@ -5,36 +5,40 @@ include($$PRI_PATH/shared-library.pri)
 QT += sensors
 
 DESTDIR  = $${ROOT_BUILD}/libs
+RECEPTORS_SRC_DIR = $${PWD}/receptors
 
 HEADERS += \
-    Receptor.hpp \
+    $${RECEPTORS_SRC_DIR}/Receptor.hpp \
+    $${RECEPTORS_SRC_DIR}/LightReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/CompassReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/AmbientLightReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/OrientationReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/ProximityReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/TiltReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/AccelerometerReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/MagnetometerReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/DummyReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/ReceptorInfo.hpp \
     ReceptorBridge.hpp \
     ReceptorFactory.hpp \
-    LightReceptor.hpp \
-    CompassReceptor.hpp \
-    AmbientLightReceptor.hpp \
-    OrientationReceptor.hpp \
-    ProximityReceptor.hpp \
-    TiltReceptor.hpp \
-    AccelerometerReceptor.hpp \
-    MagnetometerReceptor.hpp \
-    DummyReceptor.hpp
+    ReceptorUtils.hpp
 
 SOURCES += \
-    Receptor.cpp \
+    $${RECEPTORS_SRC_DIR}/Receptor.cpp \
+    $${RECEPTORS_SRC_DIR}/LightReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/CompassReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/AmbientLightReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/OrientationReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/ProximityReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/TiltReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/AccelerometerReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/MagnetometerReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/DummyReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/ReceptorInfo.cpp \
     ReceptorBridge.cpp \
-    ReceptorFactory.cpp \
-    LightReceptor.cpp \
-    CompassReceptor.cpp \
-    AmbientLightReceptor.cpp \
-    OrientationReceptor.cpp \
-    ProximityReceptor.cpp \
-    TiltReceptor.cpp \
-    AccelerometerReceptor.cpp \
-    MagnetometerReceptor.cpp \
-    DummyReceptor.cpp
+    ReceptorFactory.cpp
 
+INCLUDEPATH += $${RECEPTORS_SRC_DIR}
 
 DEFINES += SHOW_STATUS
-
 include($$PRI_PATH/status.pri)

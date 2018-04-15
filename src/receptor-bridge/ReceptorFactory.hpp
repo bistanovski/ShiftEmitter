@@ -1,27 +1,18 @@
 #ifndef RECEPTORFACTORY_HPP
 #define RECEPTORFACTORY_HPP
 
-#include <memory>
+#include <QScopedPointer>
 
 class Receptor;
+class ReceptorInfo;
 class QByteArray;
-
-enum class ReceptorType : int {
-    UNKNOWN_RECEPTOR = 0,
-    TILT_RECEPTOR,
-    LIGHT_RECEPTOR,
-    COMPASS_RECEPTOR,
-    PROXIMITY_RECEPTOR,
-    ORIENTATION_RECEPTOR,
-    ACCELEROMETER_RECEPTOR,
-    AMBIENT_LIGHT_RECEPTOR,
-    MAGNETOMETER_RECEPTOR,
-};
+enum class ReceptorType;
 
 namespace ReceptorFactory {
-    std::unique_ptr<Receptor> createReceptor(const QByteArray &type, const QByteArray &identifier);
+//    Receptor *createReceptor(const QByteArray &type, const QByteArray &identifier, QObject *targetParent = nullptr);
+    ReceptorInfo *createReceptorInfo(const QByteArray &type, const QByteArray &identifier, QObject *targetParent = nullptr);
 }
 
-ReceptorType sensorTypeToReceptorType(const QByteArray &type);
+//ReceptorType sensorTypeToReceptorType(const QByteArray &type);
 
 #endif // RECEPTORFACTORY_HPP

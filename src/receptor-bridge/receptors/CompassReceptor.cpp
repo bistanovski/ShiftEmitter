@@ -5,6 +5,7 @@
 CompassReceptor::CompassReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
 {
     qDebug() << "CompassReceptor";
+    emit identifierChanged();
     m_compass.setIdentifier(identifier);
 }
 
@@ -18,7 +19,7 @@ QByteArray CompassReceptor::getType() const
     return m_compass.type;
 }
 
-QByteArray CompassReceptor::getIdeintifier() const
+QByteArray CompassReceptor::getIdentifier() const
 {
     return m_compass.identifier();
 }

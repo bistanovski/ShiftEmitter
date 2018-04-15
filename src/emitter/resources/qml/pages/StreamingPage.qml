@@ -3,17 +3,6 @@ import QtQuick.Controls 2.2
 
 ShiftRayPage {
 
-    headerText: qsTr("Found Identifiers: " + foundSensors)
+    headerText: qsTr("Streaming Page")
 
-    ListView {
-        id: identifers
-        width: parent.width
-        height: parent.height
-        clip: true
-        model: foundIdentifiers
-        delegate: ItemDelegate {
-            text: modelData
-            width: parent.width
-        }
-    }
 }

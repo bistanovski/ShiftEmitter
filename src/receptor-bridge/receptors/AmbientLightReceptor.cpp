@@ -5,6 +5,7 @@
 AmbientLightReceptor::AmbientLightReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
 {
     qDebug() << "AmbientLightReceptor";
+    emit identifierChanged();
     m_ambientLightSensor.setIdentifier(identifier);
 }
 
@@ -18,7 +19,7 @@ QByteArray AmbientLightReceptor::getType() const
     return m_ambientLightSensor.type;
 }
 
-QByteArray AmbientLightReceptor::getIdeintifier() const
+QByteArray AmbientLightReceptor::getIdentifier() const
 {
     return m_ambientLightSensor.identifier();
 }

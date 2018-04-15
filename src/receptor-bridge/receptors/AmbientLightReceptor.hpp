@@ -6,12 +6,14 @@
 
 class AmbientLightReceptor : public Receptor
 {
+    Q_OBJECT
+
 public:
-    AmbientLightReceptor(const QByteArray &identifier, QObject *parent = nullptr);
+    explicit AmbientLightReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~AmbientLightReceptor();
 
     QByteArray getType() const override;
-    QByteArray getIdeintifier() const override;
+    QByteArray getIdentifier() const override;
 
     QSensorReading *reading() const override;
 

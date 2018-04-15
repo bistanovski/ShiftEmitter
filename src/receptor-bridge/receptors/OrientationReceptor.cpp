@@ -6,6 +6,7 @@ OrientationReceptor::OrientationReceptor(const QByteArray &identifier, QObject *
 {
     qDebug() << "OrientationReceptor";
     m_orientationSensor.setIdentifier(identifier);
+    emit identifierChanged();
 }
 
 OrientationReceptor::~OrientationReceptor()
@@ -18,7 +19,7 @@ QByteArray OrientationReceptor::getType() const
     return m_orientationSensor.type;
 }
 
-QByteArray OrientationReceptor::getIdeintifier() const
+QByteArray OrientationReceptor::getIdentifier() const
 {
     return m_orientationSensor.identifier();
 }

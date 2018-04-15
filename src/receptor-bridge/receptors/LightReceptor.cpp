@@ -6,6 +6,7 @@ LightReceptor::LightReceptor(const QByteArray &identifier, QObject *parent) : Re
 {
     qDebug() << "LightReceptor";
     m_lightSensor.setIdentifier(identifier);
+    emit identifierChanged();
 }
 
 LightReceptor::~LightReceptor()
@@ -18,7 +19,7 @@ QByteArray LightReceptor::getType() const
     return m_lightSensor.type;
 }
 
-QByteArray LightReceptor::getIdeintifier() const
+QByteArray LightReceptor::getIdentifier() const
 {
     return m_lightSensor.identifier();
 }

@@ -6,6 +6,10 @@ ApplicationWindow {
     visible: true
     width: 480
     height: 640
+    minimumWidth: width
+    minimumHeight: height
+    maximumWidth: width
+    maximumHeight: height
     title: qsTr("ShiftRay Emitter")
 
     header: MainTabBar {
@@ -15,7 +19,6 @@ ApplicationWindow {
 
     MainSwipeView {
         id: mainSwipeView
-        anchors.fill: parent
         currentIndex: mainTabBar.currentIndex
     }
 }

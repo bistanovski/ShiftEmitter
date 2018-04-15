@@ -1,13 +1,17 @@
 #include "MagnetometerReceptor.hpp"
 
+#include <QDebug>
+
 MagnetometerReceptor::MagnetometerReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
 {
+    qDebug() << "MagnetometerReceptor";
     m_magnetoMeter.setIdentifier(identifier);
+    emit identifierChanged();
 }
 
 MagnetometerReceptor::~MagnetometerReceptor()
 {
-
+    qDebug() << "~MagnetometerReceptor";
 }
 
 QByteArray MagnetometerReceptor::getType() const
@@ -15,7 +19,7 @@ QByteArray MagnetometerReceptor::getType() const
     return m_magnetoMeter.type;
 }
 
-QByteArray MagnetometerReceptor::getIdeintifier() const
+QByteArray MagnetometerReceptor::getIdentifier() const
 {
     return m_magnetoMeter.identifier();
 }
