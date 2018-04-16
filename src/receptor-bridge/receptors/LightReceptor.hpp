@@ -9,6 +9,7 @@ class LightReceptor : public Receptor
     Q_OBJECT
 
 public:
+    LightReceptor() {}
     explicit LightReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~LightReceptor();
 

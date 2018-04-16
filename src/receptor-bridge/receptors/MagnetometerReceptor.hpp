@@ -9,6 +9,7 @@ class MagnetometerReceptor : public Receptor
     Q_OBJECT
 
 public:
+    MagnetometerReceptor() {}
     explicit MagnetometerReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~MagnetometerReceptor();
 

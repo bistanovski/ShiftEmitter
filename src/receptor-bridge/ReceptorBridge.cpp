@@ -2,9 +2,18 @@
 
 #include <QDebug>
 #include <QSensor>
+#include <QtQml/qqml.h>
 
 #include "ReceptorInfo.hpp"
 #include "ReceptorFactory.hpp"
+#include "receptors/TiltReceptor.hpp"
+#include "receptors/LightReceptor.hpp"
+#include "receptors/CompassReceptor.hpp"
+#include "receptors/ProximityReceptor.hpp"
+#include "receptors/OrientationReceptor.hpp"
+#include "receptors/AmbientLightReceptor.hpp"
+#include "receptors/MagnetometerReceptor.hpp"
+#include "receptors/AccelerometerReceptor.hpp"
 
 ReceptorBridge::ReceptorBridge(QObject *parent) : QObject(parent)
 {
@@ -32,3 +41,24 @@ QObjectList ReceptorBridge::fetchReceptorInfos(QObject *targetParent)
 
     return result;
 }
+
+void ReceptorBridge::registerQuickComponents()
+{
+    qmlRegisterType<TiltReceptor>("ShiftRayReceptor", 1, 0, "TiltReceptor");
+    qmlRegisterType<LightReceptor>("ShiftRayReceptor", 1, 0, "LightReceptor");
+    qmlRegisterType<CompassReceptor>("ShiftRayReceptor", 1, 0, "CompassReceptor");
+    qmlRegisterType<ProximityReceptor>("ShiftRayReceptor", 1, 0, "ProximityReceptor");
+    qmlRegisterType<OrientationReceptor>("ShiftRayReceptor", 1, 0, "OrientationReceptor");
+    qmlRegisterType<AmbientLightReceptor>("ShiftRayReceptor", 1, 0, "AmbientLightReceptor");
+    qmlRegisterType<MagnetometerReceptor>("ShiftRayReceptor", 1, 0, "MagnetometerReceptor");
+    qmlRegisterType<AccelerometerReceptor>("ShiftRayReceptor", 1, 0, "AccelerometerReceptor");
+}
+
+// This method simplifies registering, but QtCreator is not aware of the registered types
+// Disabled for now
+
+//#include <QMetaObject>
+//template<class T> int ReceptorBridge::qmlRegisterReceptor()
+//{
+//    return qmlRegisterType<T>("ShiftRayReceptor", 1, 0, T::staticMetaObject.className());
+//}

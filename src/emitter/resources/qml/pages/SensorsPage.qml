@@ -30,10 +30,13 @@ ShiftRayPage {
             id: numberDelegate
 
             Rectangle {
+                id: sensorHolder
                 width: gridView.cellWidth - 10
                 height: width
                 anchors.margins: 10
                 radius: 10
+                border.width: 3
+                border.color: "#11998e"
 
                 gradient: Gradient {
                     GradientStop { position: 0.0; color: "#38ef7d" }
@@ -59,8 +62,15 @@ ShiftRayPage {
 
                 MouseArea {
                     anchors.fill: parent
+                    onPressed: {
+                        parent.border.color = "white"
+                    }
+                    onReleased: {
+                        parent.border.color = "#11998e"
+                    }
+
                     onClicked: {
-                        console.log('Got: ' , receptorType)
+                        console.log('Got: ' , friendlyName)
                     }
                 }
             }

@@ -9,6 +9,7 @@ class AmbientLightReceptor : public Receptor
     Q_OBJECT
 
 public:
+    AmbientLightReceptor() {}
     explicit AmbientLightReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~AmbientLightReceptor();
 

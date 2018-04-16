@@ -9,6 +9,7 @@ class TiltReceptor : public Receptor
     Q_OBJECT
 
 public:
+    TiltReceptor() {}
     explicit TiltReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~TiltReceptor();
 

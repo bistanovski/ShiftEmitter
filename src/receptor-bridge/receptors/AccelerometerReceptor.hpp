@@ -9,6 +9,7 @@ class AccelerometerReceptor : public Receptor
     Q_OBJECT
 
 public:
+    AccelerometerReceptor() {}
     explicit AccelerometerReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~AccelerometerReceptor();
 

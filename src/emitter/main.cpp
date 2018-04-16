@@ -13,6 +13,8 @@ int main(int argc, char *argv[])
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
+    ReceptorBridge::registerQuickComponents();
+
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
 

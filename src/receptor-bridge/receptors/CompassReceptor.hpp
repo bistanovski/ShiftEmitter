@@ -9,6 +9,7 @@ class CompassReceptor : public Receptor
     Q_OBJECT
 
 public:
+    CompassReceptor() {}
     explicit CompassReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~CompassReceptor();
 

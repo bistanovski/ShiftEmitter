@@ -9,6 +9,7 @@ class ProximityReceptor : public Receptor
     Q_OBJECT
 
 public:
+    ProximityReceptor() {}
     explicit ProximityReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~ProximityReceptor();
 

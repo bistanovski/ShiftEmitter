@@ -9,6 +9,7 @@ class OrientationReceptor : public Receptor
     Q_OBJECT
 
 public:
+    OrientationReceptor() {}
     explicit OrientationReceptor(const QByteArray &identifier, QObject *parent = nullptr);
     virtual ~OrientationReceptor();
 

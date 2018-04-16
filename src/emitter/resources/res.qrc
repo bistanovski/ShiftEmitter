@@ -16,5 +16,13 @@
         <file>images/Tilt.png</file>
         <file>images/Orientation.png</file>
         <file>images/Light.png</file>
+        <file>qml/components/ShiftAccelerometer.qml</file>
+        <file>qml/components/ShiftTilt.qml</file>
+        <file>qml/components/ShiftLight.qml</file>
+        <file>qml/components/ShiftCompass.qml</file>
+        <file>qml/components/ShiftProximity.qml</file>
+        <file>qml/components/ShiftOrientation.qml</file>
+        <file>qml/components/ShiftAmbientLight.qml</file>
+        <file>qml/components/ShiftMagnetoMeter.qml</file>
     </qresource>
 </RCC>

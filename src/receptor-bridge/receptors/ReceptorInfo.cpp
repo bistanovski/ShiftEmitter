@@ -1,5 +1,7 @@
 #include "ReceptorInfo.hpp"
 
+#include <QDebug>
+
 ReceptorInfo::ReceptorInfo(const QByteArray &type, const QByteArray &identifier, QObject *parent) : QObject(parent),
     m_type(type),
     m_identifier(identifier),
@@ -7,11 +9,12 @@ ReceptorInfo::ReceptorInfo(const QByteArray &type, const QByteArray &identifier,
 {
     emit typeChanged();
     emit identifierChanged();
+    qDebug() << "ReceptorInfo:" << m_friendlyName;
 }
 
 ReceptorInfo::~ReceptorInfo()
 {
-
+    qDebug() << "~ReceptorInfo:" << m_friendlyName;
 }
 
 QString ReceptorInfo::getFriendlyName() const

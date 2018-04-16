@@ -13,6 +13,12 @@ public:
     virtual ~ReceptorBridge();
 
     static QObjectList fetchReceptorInfos(QObject *targetParent);
+    static void registerQuickComponents();
+
+private:
+    // This method simplifies registering, but QtCreator is not aware of the registered types
+    // Disabled for now
+    // template<class T> static int qmlRegisterReceptor();
 };
 
 #endif // RECEPTORBRIDGE_HPP
