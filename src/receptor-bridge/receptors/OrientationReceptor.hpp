@@ -9,14 +9,16 @@ class OrientationReceptor : public Receptor
     Q_OBJECT
 
 public:
-    OrientationReceptor() {}
-    explicit OrientationReceptor(const QByteArray &identifier, QObject *parent = nullptr);
+    explicit OrientationReceptor(QObject *parent = nullptr);
     virtual ~OrientationReceptor();
 
-    QByteArray getType() const override;
-    QByteArray getIdentifier() const override;
+    void connectReceptor() override;
+    void startListening() override;
 
     QSensorReading *reading() const override;
+
+private slots:
+    void onReadingChanged();
 
 private:
     QOrientationSensor m_orientationSensor;

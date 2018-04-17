@@ -2,11 +2,9 @@
 
 #include <QDebug>
 
-OrientationReceptor::OrientationReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
+OrientationReceptor::OrientationReceptor(QObject *parent) : Receptor(parent)
 {
     qDebug() << "OrientationReceptor";
-    m_orientationSensor.setIdentifier(identifier);
-    emit identifierChanged();
 }
 
 OrientationReceptor::~OrientationReceptor()
@@ -14,17 +12,27 @@ OrientationReceptor::~OrientationReceptor()
     qDebug() << "~OrientationReceptor";
 }
 
-QByteArray OrientationReceptor::getType() const
+void OrientationReceptor::connectReceptor()
 {
-    return m_orientationSensor.type;
+    QObject::connect(&m_orientationSensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
+    const auto status = m_orientationSensor.connectToBackend();
+    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
 }
 
-QByteArray OrientationReceptor::getIdentifier() const
+void OrientationReceptor::startListening()
 {
-    return m_orientationSensor.identifier();
+    const auto status = m_orientationSensor.start();
+    qDebug() << "Orientation Listening:" << (status ? "true" : "false");
 }
 
 QSensorReading *OrientationReceptor::reading() const
 {
     return m_orientationSensor.reading();
+}
+
+void OrientationReceptor::onReadingChanged()
+{
+    qDebug() << "Reading Changed";
+    const auto orientationReading = m_orientationSensor.reading();
+    emit readingChanged();
 }

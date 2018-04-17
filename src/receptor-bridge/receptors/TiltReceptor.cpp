@@ -2,11 +2,9 @@
 
 #include <QDebug>
 
-TiltReceptor::TiltReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
+TiltReceptor::TiltReceptor(QObject *parent) : Receptor(parent)
 {
     qDebug() << "TiltReceptor";
-    m_tiltSensor.setIdentifier(identifier);
-    emit identifierChanged();
 }
 
 TiltReceptor::~TiltReceptor()
@@ -14,17 +12,27 @@ TiltReceptor::~TiltReceptor()
     qDebug() << "~TiltReceptor";
 }
 
-QByteArray TiltReceptor::getType() const
+void TiltReceptor::connectReceptor()
 {
-    return m_tiltSensor.type;
+    QObject::connect(&m_tiltSensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
+    const auto status = m_tiltSensor.connectToBackend();
+    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
 }
 
-QByteArray TiltReceptor::getIdentifier() const
+void TiltReceptor::startListening()
 {
-    return m_tiltSensor.identifier();
+    const auto status = m_tiltSensor.start();
+    qDebug() << "Tilt Listening:" << (status ? "true" : "false");
 }
 
 QSensorReading *TiltReceptor::reading() const
 {
     return m_tiltSensor.reading();
+}
+
+void TiltReceptor::onReadingChanged()
+{
+    qDebug() << "Reading Changed";
+    const auto tiltReading = m_tiltSensor.reading();
+    emit readingChanged();
 }

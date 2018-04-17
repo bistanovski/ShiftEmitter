@@ -2,11 +2,9 @@
 
 #include <QDebug>
 
-CompassReceptor::CompassReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
+CompassReceptor::CompassReceptor(QObject *parent) : Receptor(parent)
 {
     qDebug() << "CompassReceptor";
-    emit identifierChanged();
-    m_compass.setIdentifier(identifier);
 }
 
 CompassReceptor::~CompassReceptor()
@@ -14,17 +12,27 @@ CompassReceptor::~CompassReceptor()
     qDebug() << "~CompassReceptor";
 }
 
-QByteArray CompassReceptor::getType() const
+void CompassReceptor::connectReceptor()
 {
-    return m_compass.type;
+    QObject::connect(&m_compass, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
+    const auto status = m_compass.connectToBackend();
+    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
 }
 
-QByteArray CompassReceptor::getIdentifier() const
+void CompassReceptor::startListening()
 {
-    return m_compass.identifier();
+    const auto status = m_compass.start();
+    qDebug() << "Accelerometer Listening:" << (status ? "true" : "false");
 }
 
 QSensorReading *CompassReceptor::reading() const
 {
     return m_compass.reading();
+}
+
+void CompassReceptor::onReadingChanged()
+{
+    qDebug() << "Reading Changed";
+    const auto compassReading = m_compass.reading();
+    emit readingChanged();
 }

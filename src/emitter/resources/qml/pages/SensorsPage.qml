@@ -4,6 +4,7 @@ import QtQuick.Controls 2.2
 ShiftRayPage {
 
     headerText: qsTr("Found Sensors")
+    signal loadReceptor(var receptorName, var receptorProps)
 
     Item {
         id: viewHolder
@@ -71,6 +72,9 @@ ShiftRayPage {
 
                     onClicked: {
                         console.log('Got: ' , friendlyName)
+                        navigateTo(1)
+                        var receptorProps = {"receptorName": friendlyName, "receptorType": receptorType, "receptorIdentifier": receptorIdentifier};
+                        loadReceptor(friendlyName, receptorProps)
                     }
                 }
             }

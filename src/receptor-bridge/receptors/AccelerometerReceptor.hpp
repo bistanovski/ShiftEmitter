@@ -9,14 +9,16 @@ class AccelerometerReceptor : public Receptor
     Q_OBJECT
 
 public:
-    AccelerometerReceptor() {}
-    explicit AccelerometerReceptor(const QByteArray &identifier, QObject *parent = nullptr);
+    explicit AccelerometerReceptor(QObject *parent = nullptr);
     virtual ~AccelerometerReceptor();
 
-    QByteArray getType() const override;
-    QByteArray getIdentifier() const override;
+    void connectReceptor() override;
+    void startListening() override;
 
     QSensorReading *reading() const override;
+
+private slots:
+    void onReadingChanged();
 
 private:
     QAccelerometer m_accelerometer;

@@ -2,11 +2,9 @@
 
 #include <QDebug>
 
-LightReceptor::LightReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
+LightReceptor::LightReceptor(QObject *parent) : Receptor(parent)
 {
     qDebug() << "LightReceptor";
-    m_lightSensor.setIdentifier(identifier);
-    emit identifierChanged();
 }
 
 LightReceptor::~LightReceptor()
@@ -14,14 +12,17 @@ LightReceptor::~LightReceptor()
     qDebug() << "~LightReceptor";
 }
 
-QByteArray LightReceptor::getType() const
+void LightReceptor::connectReceptor()
 {
-    return m_lightSensor.type;
+    QObject::connect(&m_lightSensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
+    const auto status = m_lightSensor.connectToBackend();
+    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
 }
 
-QByteArray LightReceptor::getIdentifier() const
+void LightReceptor::startListening()
 {
-    return m_lightSensor.identifier();
+    const auto status = m_lightSensor.start();
+    qDebug() << "LightSensor Listening:" << (status ? "true" : "false");
 }
 
 QSensorReading *LightReceptor::reading() const
@@ -37,4 +38,11 @@ qreal LightReceptor::fieldOfView() const
 void LightReceptor::setFieldOfView(qreal fieldOfView)
 {
     m_lightSensor.setFieldOfView(fieldOfView);
+}
+
+void LightReceptor::onReadingChanged()
+{
+    qDebug() << "Reading Changed";
+    const auto lightReading = m_lightSensor.reading();
+    emit readingChanged();
 }

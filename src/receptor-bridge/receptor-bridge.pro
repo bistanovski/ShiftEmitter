@@ -4,6 +4,12 @@ include($$PRI_PATH/shared-library.pri)
 
 QT += sensors
 
+contains(DEFINES, ANDROID) {
+    ## When Android build is needed, 'quick' must be provided
+    ## So the qmlRegisterType<>() method is accessible
+    QT += quick
+}
+
 DESTDIR  = $${ROOT_BUILD}/libs
 RECEPTORS_SRC_DIR = $${PWD}/receptors
 
@@ -18,13 +24,12 @@ HEADERS += \
     $${RECEPTORS_SRC_DIR}/AccelerometerReceptor.hpp \
     $${RECEPTORS_SRC_DIR}/MagnetometerReceptor.hpp \
     $${RECEPTORS_SRC_DIR}/DummyReceptor.hpp \
-    $${RECEPTORS_SRC_DIR}/ReceptorInfo.hpp \
+    ReceptorInfo.hpp \
     ReceptorBridge.hpp \
     ReceptorFactory.hpp \
     ReceptorUtils.hpp
 
 SOURCES += \
-    $${RECEPTORS_SRC_DIR}/Receptor.cpp \
     $${RECEPTORS_SRC_DIR}/LightReceptor.cpp \
     $${RECEPTORS_SRC_DIR}/CompassReceptor.cpp \
     $${RECEPTORS_SRC_DIR}/AmbientLightReceptor.cpp \
@@ -34,7 +39,7 @@ SOURCES += \
     $${RECEPTORS_SRC_DIR}/AccelerometerReceptor.cpp \
     $${RECEPTORS_SRC_DIR}/MagnetometerReceptor.cpp \
     $${RECEPTORS_SRC_DIR}/DummyReceptor.cpp \
-    $${RECEPTORS_SRC_DIR}/ReceptorInfo.cpp \
+    ReceptorInfo.cpp \
     ReceptorBridge.cpp \
     ReceptorFactory.cpp
 

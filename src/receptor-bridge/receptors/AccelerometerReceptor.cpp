@@ -2,11 +2,9 @@
 
 #include <QDebug>
 
-AccelerometerReceptor::AccelerometerReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
+AccelerometerReceptor::AccelerometerReceptor(QObject *parent) : Receptor(parent)
 {
     qDebug() << "AccelerometerReceptor";
-    m_accelerometer.setIdentifier(identifier);
-    emit identifierChanged();
 }
 
 AccelerometerReceptor::~AccelerometerReceptor()
@@ -14,17 +12,27 @@ AccelerometerReceptor::~AccelerometerReceptor()
     qDebug() << "~AccelerometerReceptor";
 }
 
-QByteArray AccelerometerReceptor::getType() const
+void AccelerometerReceptor::connectReceptor()
 {
-    return m_accelerometer.type;
+    QObject::connect(&m_accelerometer, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
+    const auto status = m_accelerometer.connectToBackend();
+    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
 }
 
-QByteArray AccelerometerReceptor::getIdentifier() const
+void AccelerometerReceptor::startListening()
 {
-    return m_accelerometer.identifier();
+    const auto status = m_accelerometer.start();
+    qDebug() << "Accelerometer Listening:" << (status ? "true" : "false");
 }
 
 QSensorReading *AccelerometerReceptor::reading() const
 {
     return m_accelerometer.reading();
+}
+
+void AccelerometerReceptor::onReadingChanged()
+{
+    qDebug() << "Reading Changed";
+    const auto accelerometerReading = m_accelerometer.reading();
+    emit readingChanged();
 }

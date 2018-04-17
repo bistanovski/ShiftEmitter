@@ -9,14 +9,16 @@ class CompassReceptor : public Receptor
     Q_OBJECT
 
 public:
-    CompassReceptor() {}
-    explicit CompassReceptor(const QByteArray &identifier, QObject *parent = nullptr);
+    explicit CompassReceptor(QObject *parent = nullptr);
     virtual ~CompassReceptor();
 
-    QByteArray getType() const override;
-    QByteArray getIdentifier() const override;
+    void connectReceptor() override;
+    void startListening() override;
 
     QSensorReading *reading() const override;
+
+private slots:
+    void onReadingChanged();
 
 private:
     QCompass m_compass;

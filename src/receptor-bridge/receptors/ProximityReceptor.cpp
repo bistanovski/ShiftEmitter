@@ -2,11 +2,9 @@
 
 #include <QDebug>
 
-ProximityReceptor::ProximityReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
+ProximityReceptor::ProximityReceptor(QObject *parent) : Receptor(parent)
 {
     qDebug() << "ProximityReceptor";
-    m_proximitySensor.setIdentifier(identifier);
-    emit identifierChanged();
 }
 
 ProximityReceptor::~ProximityReceptor()
@@ -14,17 +12,27 @@ ProximityReceptor::~ProximityReceptor()
     qDebug() << "~ProximityReceptor";
 }
 
-QByteArray ProximityReceptor::getType() const
+void ProximityReceptor::connectReceptor()
 {
-    return m_proximitySensor.type;
+    QObject::connect(&m_proximitySensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
+    const auto status = m_proximitySensor.connectToBackend();
+    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
 }
 
-QByteArray ProximityReceptor::getIdentifier() const
+void ProximityReceptor::startListening()
 {
-    return m_proximitySensor.identifier();
+    const auto status = m_proximitySensor.start();
+    qDebug() << "Proximity Listening:" << (status ? "true" : "false");
 }
 
 QSensorReading *ProximityReceptor::reading() const
 {
     return m_proximitySensor.reading();
+}
+
+void ProximityReceptor::onReadingChanged()
+{
+    qDebug() << "Reading Changed";
+    const auto proximityReading = m_proximitySensor.reading();
+    emit readingChanged();
 }

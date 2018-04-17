@@ -9,14 +9,16 @@ class MagnetometerReceptor : public Receptor
     Q_OBJECT
 
 public:
-    MagnetometerReceptor() {}
-    explicit MagnetometerReceptor(const QByteArray &identifier, QObject *parent = nullptr);
+    explicit MagnetometerReceptor(QObject *parent = nullptr);
     virtual ~MagnetometerReceptor();
 
-    QByteArray getType() const override;
-    QByteArray getIdentifier() const override;
+    void connectReceptor() override;
+    void startListening() override;
 
     QSensorReading *reading() const override;
+
+private slots:
+    void onReadingChanged();
 
 private:
     QMagnetometer m_magnetoMeter;

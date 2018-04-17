@@ -2,11 +2,9 @@
 
 #include <QDebug>
 
-AmbientLightReceptor::AmbientLightReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
+AmbientLightReceptor::AmbientLightReceptor(QObject *parent) : Receptor(parent)
 {
     qDebug() << "AmbientLightReceptor";
-    emit identifierChanged();
-    m_ambientLightSensor.setIdentifier(identifier);
 }
 
 AmbientLightReceptor::~AmbientLightReceptor()
@@ -14,17 +12,27 @@ AmbientLightReceptor::~AmbientLightReceptor()
     qDebug() << "~AmbientLightReceptor" ;
 }
 
-QByteArray AmbientLightReceptor::getType() const
+void AmbientLightReceptor::connectReceptor()
 {
-    return m_ambientLightSensor.type;
+    QObject::connect(&m_ambientLightSensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
+    const auto status = m_ambientLightSensor.connectToBackend();
+    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
 }
 
-QByteArray AmbientLightReceptor::getIdentifier() const
+void AmbientLightReceptor::startListening()
 {
-    return m_ambientLightSensor.identifier();
+    const auto status = m_ambientLightSensor.start();
+    qDebug() << "AmbientLight Listening:" << (status ? "true" : "false");
 }
 
 QSensorReading *AmbientLightReceptor::reading() const
 {
     return m_ambientLightSensor.reading();
+}
+
+void AmbientLightReceptor::onReadingChanged()
+{
+    qDebug() << "Reading Changed";
+    const auto ambientLightReading = m_ambientLightSensor.reading();
+    emit readingChanged();
 }

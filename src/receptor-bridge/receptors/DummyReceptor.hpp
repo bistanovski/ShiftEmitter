@@ -9,13 +9,16 @@ class DummyReceptor : public Receptor
     Q_OBJECT
 
 public:
-    explicit DummyReceptor(const QByteArray &identifier, QObject *parent = nullptr);
+    explicit DummyReceptor(QObject *parent = nullptr);
     virtual ~DummyReceptor();
 
-    QByteArray getType() const override;
-    QByteArray getIdentifier() const override;
+    void connectReceptor() override;
+    void startListening() override;
 
     QSensorReading *reading() const override;
+
+private slots:
+    void onReadingChanged();
 
 private:
     QSensor m_dummySensor;

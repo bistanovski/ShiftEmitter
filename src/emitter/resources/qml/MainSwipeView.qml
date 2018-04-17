@@ -5,10 +5,17 @@ import "pages"
 
 SwipeView {
 
+    id: swipeView
     anchors.fill: parent
 
     SensorsPage {
         id: sensorsPage
+        onNavigateTo: {
+            swipeView.setCurrentIndex(pageIndex);
+        }
+        onLoadReceptor: {
+            streamingPage.loadReceptor(receptorName, receptorProps)
+        }
     }
 
     StreamingPage {

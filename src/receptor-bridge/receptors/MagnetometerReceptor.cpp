@@ -2,11 +2,9 @@
 
 #include <QDebug>
 
-MagnetometerReceptor::MagnetometerReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent)
+MagnetometerReceptor::MagnetometerReceptor(QObject *parent) : Receptor(parent)
 {
     qDebug() << "MagnetometerReceptor";
-    m_magnetoMeter.setIdentifier(identifier);
-    emit identifierChanged();
 }
 
 MagnetometerReceptor::~MagnetometerReceptor()
@@ -14,17 +12,27 @@ MagnetometerReceptor::~MagnetometerReceptor()
     qDebug() << "~MagnetometerReceptor";
 }
 
-QByteArray MagnetometerReceptor::getType() const
+void MagnetometerReceptor::connectReceptor()
 {
-    return m_magnetoMeter.type;
+    QObject::connect(&m_magnetoMeter, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
+    const auto status = m_magnetoMeter.connectToBackend();
+    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
 }
 
-QByteArray MagnetometerReceptor::getIdentifier() const
+void MagnetometerReceptor::startListening()
 {
-    return m_magnetoMeter.identifier();
+    const auto status = m_magnetoMeter.start();
+    qDebug() << "Magnetometer Listening:" << (status ? "true" : "false");
 }
 
 QSensorReading *MagnetometerReceptor::reading() const
 {
     return m_magnetoMeter.reading();
+}
+
+void MagnetometerReceptor::onReadingChanged()
+{
+    qDebug() << "Reading Changed";
+    const auto magnetometerReading = m_magnetoMeter.reading();
+    emit readingChanged();
 }

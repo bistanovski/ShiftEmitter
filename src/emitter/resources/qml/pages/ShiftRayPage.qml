@@ -3,6 +3,7 @@ import QtQuick.Controls 2.2
 
 Page {
     property string headerText: ""
+    signal navigateTo(var pageIndex)
 
     header: Rectangle {
         id: pageHeader

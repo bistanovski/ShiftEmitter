@@ -2,12 +2,10 @@
 
 #include <QDebug>
 
-DummyReceptor::DummyReceptor(const QByteArray &identifier, QObject *parent) : Receptor(parent),
+DummyReceptor::DummyReceptor(QObject *parent) : Receptor(parent),
     m_dummySensor(m_dummyType)
 {
     qDebug() << "DummyReceptor";
-    m_dummySensor.setIdentifier(identifier);
-    emit identifierChanged();
 }
 
 DummyReceptor::~DummyReceptor()
@@ -15,17 +13,27 @@ DummyReceptor::~DummyReceptor()
     qDebug() << "~DummyReceptor";
 }
 
-QByteArray DummyReceptor::getType() const
+void DummyReceptor::connectReceptor()
 {
-    return m_dummySensor.type();
+    QObject::connect(&m_dummySensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
+    const auto status = m_dummySensor.connectToBackend();
+    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
 }
 
-QByteArray DummyReceptor::getIdentifier() const
+void DummyReceptor::startListening()
 {
-    return m_dummySensor.identifier();
+    const auto status = m_dummySensor.start();
+    qDebug() << "Accelerometer Listening:" << (status ? "true" : "false");
 }
 
 QSensorReading *DummyReceptor::reading() const
 {
     return m_dummySensor.reading();
+}
+
+void DummyReceptor::onReadingChanged()
+{
+    qDebug() << "Reading Changed";
+    const auto accelerometerReading = m_dummySensor.reading();
+    emit readingChanged();
 }

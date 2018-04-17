@@ -9,14 +9,16 @@ class ProximityReceptor : public Receptor
     Q_OBJECT
 
 public:
-    ProximityReceptor() {}
-    explicit ProximityReceptor(const QByteArray &identifier, QObject *parent = nullptr);
+    explicit ProximityReceptor(QObject *parent = nullptr);
     virtual ~ProximityReceptor();
 
-    QByteArray getType() const override;
-    QByteArray getIdentifier() const override;
+    void connectReceptor() override;
+    void startListening() override;
 
     QSensorReading *reading() const override;
+
+private slots:
+    void onReadingChanged();
 
 private:
     QProximitySensor m_proximitySensor;
