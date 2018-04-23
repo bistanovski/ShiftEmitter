@@ -1,18 +1,20 @@
-#ifndef RECEPTORBRIDGE_HPP
-#define RECEPTORBRIDGE_HPP
+#ifndef SIMULATEDRECEPTORBRIDGE_H
+#define SIMULATEDRECEPTORBRIDGE_H
 
 #include <QObject>
 
 class Receptor;
 
-namespace ReceptorBridge
+namespace SimulatedReceptorBridge
 {
     QObjectList fetchReceptorInfos(QObject *targetParent);
     void registerQuickComponents();
+
+    void insertPairOfByteArraysInVector(QVector<QPair<QByteArray, QByteArray>> &targetVector, const QByteArray &first, const QByteArray &second);
 
     // This method simplifies registering, but QtCreator is not aware of the registered types
     // Disabled for now
     // template<class T> static int qmlRegisterReceptor();
 }
 
-#endif // RECEPTORBRIDGE_HPP
+#endif // SIMULATEDRECEPTORBRIDGE_H

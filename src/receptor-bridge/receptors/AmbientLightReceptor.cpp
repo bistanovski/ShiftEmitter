@@ -25,11 +25,6 @@ void AmbientLightReceptor::startListening()
     qDebug() << "AmbientLight Listening:" << (status ? "true" : "false");
 }
 
-QSensorReading *AmbientLightReceptor::reading() const
-{
-    return m_ambientLightSensor.reading();
-}
-
 void AmbientLightReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

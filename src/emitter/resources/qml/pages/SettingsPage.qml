@@ -5,6 +5,20 @@ ShiftRayPage {
 
     headerText: qsTr("Settings Page")
 
+    CheckBox {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 100
+        text: qsTr("Simulator enabled")
+
+        onCheckedChanged: {
+            ShiftSettings.usingSimulator = checked
+        }
+
+        Component.onCompleted: {
+            checked = ShiftSettings.usingSimulator
+        }
+    }
+
     Text {
         id: initialText
         anchors.centerIn: parent

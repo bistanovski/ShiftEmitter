@@ -12,13 +12,11 @@ public:
     explicit MagnetometerReceptor(QObject *parent = nullptr);
     virtual ~MagnetometerReceptor();
 
-    void connectReceptor() override;
-    void startListening() override;
-
-    QSensorReading *reading() const override;
+    virtual void connectReceptor() override;
+    virtual void startListening() override;
 
 private slots:
-    void onReadingChanged();
+    virtual void onReadingChanged() override;
 
 private:
     QMagnetometer m_magnetoMeter;

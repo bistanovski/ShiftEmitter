@@ -25,11 +25,6 @@ void ProximityReceptor::startListening()
     qDebug() << "Proximity Listening:" << (status ? "true" : "false");
 }
 
-QSensorReading *ProximityReceptor::reading() const
-{
-    return m_proximitySensor.reading();
-}
-
 void ProximityReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

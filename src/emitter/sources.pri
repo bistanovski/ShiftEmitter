@@ -1,5 +1,7 @@
 HEADERS += \
-    models/ReceptorsModel.hpp
+    models/ReceptorsModel.hpp \
+    $$PWD/ShiftSettings.hpp
 
 SOURCES += main.cpp \
-    models/ReceptorsModel.cpp
+    models/ReceptorsModel.cpp \
+    $$PWD/ShiftSettings.cpp

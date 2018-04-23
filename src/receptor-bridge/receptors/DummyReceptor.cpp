@@ -26,11 +26,6 @@ void DummyReceptor::startListening()
     qDebug() << "Accelerometer Listening:" << (status ? "true" : "false");
 }
 
-QSensorReading *DummyReceptor::reading() const
-{
-    return m_dummySensor.reading();
-}
-
 void DummyReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

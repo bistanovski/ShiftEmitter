@@ -18,7 +18,7 @@ void ReceptorsModel::fillReceptorsData(const QObjectList &receptors)
     m_receptorsList = receptors;
 }
 
-void ReceptorsModel::registerModel(QQmlContext *ctxt)
+void ReceptorsModel::registerQmlModel(QQmlContext *ctxt)
 {
     ctxt->setContextProperty("receptorsModel", QVariant::fromValue(m_receptorsList));
 }

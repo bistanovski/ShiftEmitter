@@ -25,11 +25,6 @@ void CompassReceptor::startListening()
     qDebug() << "Accelerometer Listening:" << (status ? "true" : "false");
 }
 
-QSensorReading *CompassReceptor::reading() const
-{
-    return m_compass.reading();
-}
-
 void CompassReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

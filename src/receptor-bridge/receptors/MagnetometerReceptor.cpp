@@ -25,11 +25,6 @@ void MagnetometerReceptor::startListening()
     qDebug() << "Magnetometer Listening:" << (status ? "true" : "false");
 }
 
-QSensorReading *MagnetometerReceptor::reading() const
-{
-    return m_magnetoMeter.reading();
-}
-
 void MagnetometerReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

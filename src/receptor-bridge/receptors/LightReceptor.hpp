@@ -12,16 +12,14 @@ public:
     explicit LightReceptor(QObject *parent = nullptr);
     virtual ~LightReceptor();
 
-    void connectReceptor() override;
-    void startListening() override;
-
-    QSensorReading *reading() const override;
+    virtual void connectReceptor() override;
+    virtual void startListening() override;
 
     qreal fieldOfView() const;
     void setFieldOfView(qreal fieldOfView);
 
 private slots:
-    void onReadingChanged();
+    virtual void onReadingChanged() override;
 
 private:
     QLightSensor m_lightSensor;

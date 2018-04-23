@@ -14,7 +14,7 @@ public:
     virtual ~ReceptorsModel();
 
     void fillReceptorsData(const QObjectList &receptors);
-    void registerModel(QQmlContext *ctxt);
+    void registerQmlModel(QQmlContext *ctxt);
 
 private:
     QObjectList m_receptorsList;
