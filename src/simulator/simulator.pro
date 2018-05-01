@@ -15,7 +15,11 @@ contains(DEFINES, ANDROID) {
 
 DESTDIR  = $${ROOT_BUILD}/libs
 
+include(fake-readings.pri)
 include(simulator-sources.pri)
+
+#Receptor
+LIBS += -L$${ROOT_BUILD}/libs -lreceptor-bridge
 
 DEFINES += SHOW_STATUS
 include($$PRI_PATH/status.pri)

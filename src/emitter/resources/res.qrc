@@ -23,7 +23,7 @@
         <file>qml/components/ShiftProximity.qml</file>
         <file>qml/components/ShiftOrientation.qml</file>
         <file>qml/components/ShiftAmbientLight.qml</file>
-        <file>qml/components/ShiftMagnetoMeter.qml</file>
         <file>qml/components/ShiftReceptor.qml</file>
+        <file>qml/components/ShiftMagnetometer.qml</file>
     </qresource>
 </RCC>

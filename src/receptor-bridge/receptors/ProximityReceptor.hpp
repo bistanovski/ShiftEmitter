@@ -18,6 +18,9 @@ public:
 private slots:
     virtual void onReadingChanged() override;
 
+signals:
+    void somethingIsCloseChanged(const bool close);
+
 private:
     QProximitySensor m_proximitySensor;
 };

@@ -1,6 +1,7 @@
 #ifndef SIMULATEDCOMPASS_HPP
 #define SIMULATEDCOMPASS_HPP
 
+#include <QThread>
 #include "receptors/CompassReceptor.hpp"
 
 class SimulatedCompass : public CompassReceptor
@@ -12,8 +13,8 @@ public:
     virtual void connectReceptor() override;
     virtual void startListening() override;
 
-private slots:
-    virtual void onReadingChanged() override;
+private:
+    QThread m_workerThread;
 };
 
 #endif // SIMULATEDCOMPASS_HPP

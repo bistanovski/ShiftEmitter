@@ -15,19 +15,19 @@ ProximityReceptor::~ProximityReceptor()
 void ProximityReceptor::connectReceptor()
 {
     QObject::connect(&m_proximitySensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
-    const auto status = m_proximitySensor.connectToBackend();
-    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
+    setConnectedToBackend(m_proximitySensor.connectToBackend());
+    qDebug() << "Connected to Backend:" << (isConnectedToBackend() ? "true" : "false");
 }
 
 void ProximityReceptor::startListening()
 {
-    const auto status = m_proximitySensor.start();
-    qDebug() << "Proximity Listening:" << (status ? "true" : "false");
+    setIsListening(m_proximitySensor.start());
+    qDebug() << "Proximity Listening:" << (isListening() ? "true" : "false");
 }
 
 void ProximityReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";
     const auto proximityReading = m_proximitySensor.reading();
-    emit readingChanged();
+    emit somethingIsCloseChanged(proximityReading->close());
 }

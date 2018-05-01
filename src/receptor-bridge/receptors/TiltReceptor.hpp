@@ -18,6 +18,9 @@ public:
 private slots:
     virtual void onReadingChanged() override;
 
+signals:
+    void tiltDetected(const qreal xRotation, const qreal yRotation);
+
 private:
     QTiltSensor m_tiltSensor;
 };

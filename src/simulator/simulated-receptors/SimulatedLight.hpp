@@ -1,6 +1,7 @@
 #ifndef SIMULATEDLIGHT_HPP
 #define SIMULATEDLIGHT_HPP
 
+#include <QThread>
 #include "receptors/LightReceptor.hpp"
 
 class SimulatedLight : public LightReceptor
@@ -12,8 +13,8 @@ public:
     virtual void connectReceptor() override;
     virtual void startListening() override;
 
-private slots:
-    virtual void onReadingChanged() override;
+private:
+    QThread m_workerThread;
 };
 
 #endif // SIMULATEDLIGHT_HPP

@@ -10,7 +10,6 @@ HEADERS += \
     $${RECEPTORS_SRC_DIR}/TiltReceptor.hpp \
     $${RECEPTORS_SRC_DIR}/AccelerometerReceptor.hpp \
     $${RECEPTORS_SRC_DIR}/MagnetometerReceptor.hpp \
-    $${RECEPTORS_SRC_DIR}/DummyReceptor.hpp \
     ReceptorInfo.hpp \
     ReceptorBridge.hpp \
     ReceptorFactory.hpp \
@@ -25,7 +24,6 @@ SOURCES += \
     $${RECEPTORS_SRC_DIR}/TiltReceptor.cpp \
     $${RECEPTORS_SRC_DIR}/AccelerometerReceptor.cpp \
     $${RECEPTORS_SRC_DIR}/MagnetometerReceptor.cpp \
-    $${RECEPTORS_SRC_DIR}/DummyReceptor.cpp \
     ReceptorInfo.cpp \
     ReceptorBridge.cpp \
     ReceptorFactory.cpp

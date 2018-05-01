@@ -18,6 +18,9 @@ public:
 private slots:
     virtual void onReadingChanged() override;
 
+signals:
+    void lightLevelChanged(const int lightLevel);
+
 private:
     QAmbientLightSensor m_ambientLightSensor;
 };

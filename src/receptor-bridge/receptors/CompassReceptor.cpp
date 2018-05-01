@@ -15,19 +15,19 @@ CompassReceptor::~CompassReceptor()
 void CompassReceptor::connectReceptor()
 {
     QObject::connect(&m_compass, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
-    const auto status = m_compass.connectToBackend();
-    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
+    setConnectedToBackend(m_compass.connectToBackend());
+    qDebug() << "Connected to Backend:" << (isConnectedToBackend() ? "true" : "false");
 }
 
 void CompassReceptor::startListening()
 {
-    const auto status = m_compass.start();
-    qDebug() << "Accelerometer Listening:" << (status ? "true" : "false");
+    setIsListening(m_compass.start());
+    qDebug() << "Accelerometer Listening:" << (isListening() ? "true" : "false");
 }
 
 void CompassReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";
     const auto compassReading = m_compass.reading();
-    emit readingChanged();
+    emit compassReadingChanged(compassReading->azimuth(), compassReading->calibrationLevel());
 }

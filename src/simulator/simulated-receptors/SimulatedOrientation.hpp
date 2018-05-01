@@ -1,6 +1,7 @@
 #ifndef SIMULATEDORIENTATION_H
 #define SIMULATEDORIENTATION_H
 
+#include <QThread>
 #include "receptors/OrientationReceptor.hpp"
 
 class SimulatedOrientation : public OrientationReceptor
@@ -12,8 +13,8 @@ public:
     virtual void connectReceptor() override;
     virtual void startListening() override;
 
-private slots:
-    virtual void onReadingChanged() override;
+private:
+    QThread m_workerThread;
 };
 
 #endif // SIMULATEDORIENTATION_H

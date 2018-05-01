@@ -18,6 +18,9 @@ public:
 private slots:
     virtual void onReadingChanged() override;
 
+signals:
+    void compassReadingChanged(const qreal azimuth, const qreal calibrationLevel);
+
 private:
     QCompass m_compass;
 };

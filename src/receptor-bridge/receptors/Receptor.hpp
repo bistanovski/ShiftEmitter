@@ -41,7 +41,6 @@ signals:
     void typeChanged();
     void identifierChanged();
     void friendlyNameChanged();
-    void readingChanged();
     void connectedToBackendChanged();
     void listeningChanged();
 
@@ -49,8 +48,8 @@ protected:
     QByteArray m_type;
     QByteArray m_identifier;
     QString m_friendlyName;
-    bool m_isConnectedToBackend;
-    bool m_isListening;
+    bool m_isConnectedToBackend = false;
+    bool m_isListening = false;
 };
 
 #endif // RECEPTOR_HPP

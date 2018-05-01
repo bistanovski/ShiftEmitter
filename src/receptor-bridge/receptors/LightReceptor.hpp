@@ -21,6 +21,9 @@ public:
 private slots:
     virtual void onReadingChanged() override;
 
+signals:
+    void lightReadingChanged(const qreal luxValue);
+
 private:
     QLightSensor m_lightSensor;
 };

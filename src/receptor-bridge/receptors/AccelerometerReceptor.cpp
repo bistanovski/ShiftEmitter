@@ -15,19 +15,19 @@ AccelerometerReceptor::~AccelerometerReceptor()
 void AccelerometerReceptor::connectReceptor()
 {
     QObject::connect(&m_accelerometer, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
-    const auto status = m_accelerometer.connectToBackend();
-    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
+    setConnectedToBackend(m_accelerometer.connectToBackend());
+    qDebug() << "Connected to Backend:" << (isConnectedToBackend() ? "true" : "false");
 }
 
 void AccelerometerReceptor::startListening()
 {
-    const auto status = m_accelerometer.start();
-    qDebug() << "Accelerometer Listening:" << (status ? "true" : "false");
+    setIsListening(m_accelerometer.start());
+    qDebug() << "Accelerometer Listening:" << (isListening() ? "true" : "false");
 }
 
 void AccelerometerReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";
     const auto accelerometerReading = m_accelerometer.reading();
-    emit readingChanged();
+    emit accelerationChanged(accelerometerReading->x(), accelerometerReading->y(), accelerometerReading->z());
 }

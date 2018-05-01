@@ -15,19 +15,19 @@ AmbientLightReceptor::~AmbientLightReceptor()
 void AmbientLightReceptor::connectReceptor()
 {
     QObject::connect(&m_ambientLightSensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
-    const auto status = m_ambientLightSensor.connectToBackend();
-    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
+    setConnectedToBackend(m_ambientLightSensor.connectToBackend());
+    qDebug() << "Connected to Backend:" << (isConnectedToBackend() ? "true" : "false");
 }
 
 void AmbientLightReceptor::startListening()
 {
-    const auto status = m_ambientLightSensor.start();
-    qDebug() << "AmbientLight Listening:" << (status ? "true" : "false");
+    setIsListening(m_ambientLightSensor.start());
+    qDebug() << "AmbientLight Listening:" << (isListening() ? "true" : "false");
 }
 
 void AmbientLightReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";
     const auto ambientLightReading = m_ambientLightSensor.reading();
-    emit readingChanged();
+    emit lightLevelChanged(static_cast<int>(ambientLightReading->lightLevel()));
 }

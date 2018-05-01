@@ -1,6 +1,7 @@
 #ifndef SIMULATEDTILT_HPP
 #define SIMULATEDTILT_HPP
 
+#include <QThread>
 #include "receptors/TiltReceptor.hpp"
 
 class SimulatedTilt : public TiltReceptor
@@ -12,8 +13,8 @@ public:
     virtual void connectReceptor() override;
     virtual void startListening() override;
 
-private slots:
-    virtual void onReadingChanged() override;
+private:
+    QThread m_workerThread;
 };
 
 #endif // SIMULATEDTILT_HPP

@@ -18,6 +18,9 @@ public:
 private slots:
     virtual void onReadingChanged() override;
 
+signals:
+    void orientationChanged(const int orientation);
+
 private:
     QOrientationSensor m_orientationSensor;
 };

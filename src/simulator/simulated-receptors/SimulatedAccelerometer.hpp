@@ -1,10 +1,13 @@
 #ifndef SIMULATEDACCELEROMETER_HPP
 #define SIMULATEDACCELEROMETER_HPP
 
+#include <QThread>
 #include "receptors/AccelerometerReceptor.hpp"
 
 class SimulatedAccelerometer : public AccelerometerReceptor
 {
+    Q_OBJECT
+
 public:
     explicit SimulatedAccelerometer(QObject *parent = nullptr);
     virtual ~SimulatedAccelerometer();
@@ -12,8 +15,8 @@ public:
     virtual void connectReceptor() override;
     virtual void startListening() override;
 
-private slots:
-    virtual void onReadingChanged() override;
+private:
+    QThread m_workerThread;
 };
 
 #endif // SIMULATEDACCELEROMETER_HPP

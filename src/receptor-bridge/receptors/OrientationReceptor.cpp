@@ -15,19 +15,19 @@ OrientationReceptor::~OrientationReceptor()
 void OrientationReceptor::connectReceptor()
 {
     QObject::connect(&m_orientationSensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
-    const auto status = m_orientationSensor.connectToBackend();
-    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
+    setConnectedToBackend(m_orientationSensor.connectToBackend());
+    qDebug() << "Connected to Backend:" << (isConnectedToBackend() ? "true" : "false");
 }
 
 void OrientationReceptor::startListening()
 {
-    const auto status = m_orientationSensor.start();
-    qDebug() << "Orientation Listening:" << (status ? "true" : "false");
+    setIsListening(m_orientationSensor.start());
+    qDebug() << "Orientation Listening:" << (isListening() ? "true" : "false");
 }
 
 void OrientationReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";
     const auto orientationReading = m_orientationSensor.reading();
-    emit readingChanged();
+    emit orientationChanged(static_cast<int>(orientationReading->orientation()));
 }

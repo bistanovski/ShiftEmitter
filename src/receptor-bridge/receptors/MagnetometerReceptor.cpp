@@ -15,19 +15,19 @@ MagnetometerReceptor::~MagnetometerReceptor()
 void MagnetometerReceptor::connectReceptor()
 {
     QObject::connect(&m_magnetoMeter, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
-    const auto status = m_magnetoMeter.connectToBackend();
-    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
+    setConnectedToBackend(m_magnetoMeter.connectToBackend());
+    qDebug() << "Connected to Backend:" << (isConnectedToBackend() ? "true" : "false");
 }
 
 void MagnetometerReceptor::startListening()
 {
-    const auto status = m_magnetoMeter.start();
-    qDebug() << "Magnetometer Listening:" << (status ? "true" : "false");
+    setIsListening(m_magnetoMeter.start());
+    qDebug() << "Magnetometer Listening:" << (isListening() ? "true" : "false");
 }
 
 void MagnetometerReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";
-    const auto magnetometerReading = m_magnetoMeter.reading();
-    emit readingChanged();
+    const auto magnetoReading = m_magnetoMeter.reading();
+    emit magneticFluxChanged(magnetoReading->x(), magnetoReading->y(), magnetoReading->z(), magnetoReading->calibrationLevel());
 }

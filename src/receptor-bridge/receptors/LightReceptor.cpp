@@ -15,14 +15,14 @@ LightReceptor::~LightReceptor()
 void LightReceptor::connectReceptor()
 {
     QObject::connect(&m_lightSensor, SIGNAL(readingChanged()), this, SLOT(onReadingChanged()));
-    const auto status = m_lightSensor.connectToBackend();
-    qDebug() << "Connected to Backend:" << (status ? "true" : "false");
+    setConnectedToBackend(m_lightSensor.connectToBackend());
+    qDebug() << "Connected to Backend:" << (isConnectedToBackend() ? "true" : "false");
 }
 
 void LightReceptor::startListening()
 {
-    const auto status = m_lightSensor.start();
-    qDebug() << "LightSensor Listening:" << (status ? "true" : "false");
+    setIsListening(m_lightSensor.start());
+    qDebug() << "LightSensor Listening:" << (isListening() ? "true" : "false");
 }
 
 qreal LightReceptor::fieldOfView() const
@@ -39,5 +39,5 @@ void LightReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";
     const auto lightReading = m_lightSensor.reading();
-    emit readingChanged();
+    emit lightReadingChanged(lightReading->lux());
 }

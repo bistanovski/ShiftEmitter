@@ -18,6 +18,9 @@ public:
 private slots:
     virtual void onReadingChanged() override;
 
+signals:
+    void accelerationChanged(const qreal xValue, const qreal yValue, const qreal zValue);
+
 private:
     QAccelerometer m_accelerometer;
 };

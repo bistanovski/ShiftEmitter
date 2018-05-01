@@ -1,6 +1,7 @@
 #ifndef SIMULATEDPROXIMITY_HPP
 #define SIMULATEDPROXIMITY_HPP
 
+#include <QThread>
 #include "receptors/ProximityReceptor.hpp"
 
 class SimulatedProximity : public ProximityReceptor
@@ -12,8 +13,8 @@ public:
     virtual void connectReceptor() override;
     virtual void startListening() override;
 
-private slots:
-    virtual void onReadingChanged() override;
+private:
+    QThread m_workerThread;
 };
 
 #endif // SIMULATEDPROXIMITY_HPP
