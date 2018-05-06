@@ -4,6 +4,7 @@
 
 #include <QDebug>
 
+#include "Utility.hpp"
 #include "ShiftSettings.hpp"
 #include "receptor-bridge/ReceptorBridge.hpp"
 #include "simulator/SimulatedReceptorBridge.hpp"
@@ -30,12 +31,16 @@ int main(int argc, char *argv[])
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
+    const auto deviceUUID = ShiftUtils::generateDeviceUUID();
+    qDebug() << "Device UUID: " << deviceUUID;
+
     QQmlApplicationEngine engine;
     QQmlContext *rootContext = engine.rootContext();
 
     ReceptorsModel receptorsModel;
     ShiftSettings settings;
     settings.registerQmlSettings(rootContext);
+    settings.setDeviceUUID(deviceUUID);
 
     auto registerComponentsAndModel = [&settings, &receptorsModel, rootContext]() {
         registerQuickComponents(settings.isSimulatorUsed());
