@@ -25,6 +25,12 @@ void TiltReceptor::startListening()
     qDebug() << "Tilt Listening:" << (isListening() ? "true" : "false");
 }
 
+void TiltReceptor::stopListening()
+{
+    m_tiltSensor.stop();
+    setIsListening(false);
+}
+
 void TiltReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

@@ -2,7 +2,7 @@ include($$PRI_PATH/defines.pri)
 include($$PRI_PATH/platform.pri)
 include(sources.pri)
 
-QT += quick
+QT += quick mqtt
 
 TEMPLATE = app
 TARGET   = ShiftEmitter
@@ -18,7 +18,7 @@ LIBS += -L$${ROOT_BUILD}/libs -lreceptor-bridge
 RESOURCES += \
     resources/res.qrc
 
-contains(DEFINES, ANDROID) {
+contains(DEFINES, SHIFT_ANDROID) {
 
     ## The library libQt5Sensors.so have to be linked against the executable
     ## and not against receptor-bridge, since the bridge is built as library

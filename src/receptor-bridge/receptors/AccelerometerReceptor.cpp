@@ -25,6 +25,12 @@ void AccelerometerReceptor::startListening()
     qDebug() << "Accelerometer Listening:" << (isListening() ? "true" : "false");
 }
 
+void AccelerometerReceptor::stopListening()
+{
+    m_accelerometer.stop();
+    setIsListening(false);
+}
+
 void AccelerometerReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

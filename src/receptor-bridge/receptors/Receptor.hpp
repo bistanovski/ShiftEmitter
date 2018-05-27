@@ -33,6 +33,7 @@ public:
 
     Q_INVOKABLE virtual void connectReceptor() = 0;
     Q_INVOKABLE virtual void startListening() = 0;
+    Q_INVOKABLE virtual void stopListening() = 0;
 
 private slots:
     virtual void onReadingChanged() = 0;

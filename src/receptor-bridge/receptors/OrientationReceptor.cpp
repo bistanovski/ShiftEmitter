@@ -25,6 +25,12 @@ void OrientationReceptor::startListening()
     qDebug() << "Orientation Listening:" << (isListening() ? "true" : "false");
 }
 
+void OrientationReceptor::stopListening()
+{
+    m_orientationSensor.stop();
+    setIsListening(false);
+}
+
 void OrientationReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

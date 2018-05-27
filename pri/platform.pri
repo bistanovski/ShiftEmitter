@@ -1,9 +1,9 @@
-android {
-    include($$PRI_PATH/platform/android.pri)
-}
-
 linux {
     include($$PRI_PATH/platform/linux.pri)
+}
+
+android {
+    include($$PRI_PATH/platform/android.pri)
 }
 
 macx {

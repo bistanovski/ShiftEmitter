@@ -16,6 +16,9 @@ public:
     void fillReceptorsData(const QObjectList &receptors);
     void registerQmlModel(QQmlContext *ctxt);
 
+    int numOfReceptors() const;
+    const QObjectList &getReceptorsModel();
+
 private:
     QObjectList m_receptorsList;
 };

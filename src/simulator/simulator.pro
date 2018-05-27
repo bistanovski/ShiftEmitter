@@ -7,7 +7,7 @@ INCLUDEPATH += $${RECEPTORS_SRC_DIR}
 
 QT += sensors
 
-contains(DEFINES, ANDROID) {
+contains(DEFINES, SHIFT_ANDROID) {
     ## When Android build is needed, 'quick' must be provided
     ## So the qmlRegisterType<>() method is accessible
     QT += quick

@@ -14,6 +14,7 @@ public:
 
     virtual void connectReceptor() override;
     virtual void startListening() override;
+    virtual void stopListening() override;
 
     qreal fieldOfView() const;
     void setFieldOfView(qreal fieldOfView);

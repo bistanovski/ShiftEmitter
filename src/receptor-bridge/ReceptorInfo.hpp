@@ -1,7 +1,11 @@
 #ifndef RECEPTORINFO_HPP
 #define RECEPTORINFO_HPP
 
+#include <QMap>
 #include <QObject>
+
+auto receptorTypeToFriendlyName(const QByteArray &type);
+auto readingsPerReceptor(const QByteArray &type);
 
 class ReceptorInfo : public QObject
 {
@@ -18,6 +22,7 @@ public:
     QByteArray getType() const;
     QByteArray getIdentifier() const;
     QString getFriendlyName() const;
+    const QMap<QString, QPair<QString, QString>> &getReadings() const;
 
 signals:
     void typeChanged();
@@ -28,8 +33,7 @@ private:
     QByteArray m_type;
     QByteArray m_identifier;
     QString m_friendlyName;
+    QMap<QString, QPair<QString, QString>> m_receptorReadings;
 };
-
-QString receptorTypeToFriendlyName(const QByteArray &type);
 
 #endif // RECEPTORINFO_HPP

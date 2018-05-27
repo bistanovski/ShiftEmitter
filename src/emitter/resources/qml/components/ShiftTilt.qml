@@ -1,6 +1,8 @@
 import QtQuick 2.9
 import ShiftRayReceptor 1.0
 
+import "../elements"
+
 ShiftReceptor {
     id: rootReceptor
 
@@ -15,12 +17,12 @@ ShiftReceptor {
 
         Component.onCompleted: {
             connectReceptor();
-            startListening();
         }
 
         onTiltDetected: {
             rootReceptor.xRotationValue = xRotation
             rootReceptor.yRotationValue = yRotation
+            TelemetryTransporter.sendTiltTelemetry(xRotation, yRotation)
         }
     }
 
@@ -40,5 +42,13 @@ ShiftReceptor {
         anchors.top: xRotationText.bottom
         text: "Y Rotation: " + rootReceptor.yRotationValue
         horizontalAlignment: Text.AlignHCenter
+    }
+
+    CheckableStreamButton {
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        receptorTarget: tiltReceptor
     }
 }

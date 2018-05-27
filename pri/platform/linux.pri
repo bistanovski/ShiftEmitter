@@ -1,4 +1,4 @@
-DEFINES += LINUX
+DEFINES += SHIFT_LINUX
 
 QMAKE_CXXFLAGS += -pedantic -Wall -Wextra
 QMAKE_CXXFLAGS += -Wredundant-decls

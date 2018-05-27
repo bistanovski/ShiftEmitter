@@ -30,3 +30,9 @@ void SimulatedAmbientLight::startListening()
     setIsListening(true);
     m_workerThread.start();
 }
+
+void SimulatedAmbientLight::stopListening()
+{
+    m_workerThread.exit();
+    m_workerThread.wait(1000);
+}

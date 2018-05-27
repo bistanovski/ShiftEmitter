@@ -29,3 +29,9 @@ void SimulatedLight::startListening()
     setIsListening(true);
     m_workerThread.start();
 }
+
+void SimulatedLight::stopListening()
+{
+    m_workerThread.exit();
+    m_workerThread.wait(1000);
+}

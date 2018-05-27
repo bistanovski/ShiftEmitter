@@ -6,12 +6,20 @@
 
 #include "Utility.hpp"
 #include "ShiftSettings.hpp"
+#include "models/ReceptorsModel.hpp"
+#include "network/RestApiClient.hpp"
+#include "receptor-bridge/ReceptorInfo.hpp"
+#include "network/TelemetryTransporter.hpp"
 #include "receptor-bridge/ReceptorBridge.hpp"
 #include "simulator/SimulatedReceptorBridge.hpp"
-#include "models/ReceptorsModel.hpp"
 
 auto fillReceptorsModel = [](ReceptorsModel &model, QQmlContext *ctxt, const QObjectList &data)
 {
+    for(const auto d : qAsConst(data))
+    {
+        const auto info = qobject_cast<const ReceptorInfo*>(d);
+        qDebug() << "ReceptorReadings:" << info->getFriendlyName() << info->getReadings();
+    }
     model.fillReceptorsData(data);
     model.registerQmlModel(ctxt);
 };
@@ -31,16 +39,18 @@ int main(int argc, char *argv[])
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
-    const auto deviceUUID = ShiftUtils::generateDeviceUUID();
-    qDebug() << "Device UUID: " << deviceUUID;
-
     QQmlApplicationEngine engine;
     QQmlContext *rootContext = engine.rootContext();
+
+    TelemetryTransporter telTransporter;
+    telTransporter.registerQmlTransporter(rootContext);
 
     ReceptorsModel receptorsModel;
     ShiftSettings settings;
     settings.registerQmlSettings(rootContext);
-    settings.setDeviceUUID(deviceUUID);
+    settings.setDeviceUUID(ShiftUtils::generateDeviceUUID());
+    settings.setOSName(ShiftUtils::operatingSystemName());
+    settings.setOSVersion(ShiftUtils::operatingSystemVersion());
 
     auto registerComponentsAndModel = [&settings, &receptorsModel, rootContext]() {
         registerQuickComponents(settings.isSimulatorUsed());
@@ -49,6 +59,9 @@ int main(int argc, char *argv[])
 
     QObject::connect(&settings, &ShiftSettings::usingSimulatorChanged, registerComponentsAndModel);
     registerComponentsAndModel();
+
+    RestApiClient restClient;
+    rootContext->setContextProperty("RestApiClient", &restClient);
 
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
 

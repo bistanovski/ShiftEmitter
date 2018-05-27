@@ -1,8 +1,13 @@
 HEADERS += \
-    models/ReceptorsModel.hpp \
+    $$PWD/Utility.hpp \
     $$PWD/ShiftSettings.hpp \
-    $$PWD/Utility.hpp
+    $$PWD/models/ReceptorsModel.hpp \
+    $$PWD/network/TelemetryTransporter.hpp \
+    $$PWD/network/RestApiClient.hpp
 
 SOURCES += main.cpp \
-    models/ReceptorsModel.cpp \
-    $$PWD/ShiftSettings.cpp
+    $$PWD/Utility.cpp \
+    $$PWD/ShiftSettings.cpp \
+    $$PWD/models/ReceptorsModel.cpp \
+    $$PWD/network/TelemetryTransporter.cpp \
+    $$PWD/network/RestApiClient.cpp

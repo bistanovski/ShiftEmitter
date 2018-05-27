@@ -25,6 +25,12 @@ void AmbientLightReceptor::startListening()
     qDebug() << "AmbientLight Listening:" << (isListening() ? "true" : "false");
 }
 
+void AmbientLightReceptor::stopListening()
+{
+    m_ambientLightSensor.stop();
+    setIsListening(false);
+}
+
 void AmbientLightReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

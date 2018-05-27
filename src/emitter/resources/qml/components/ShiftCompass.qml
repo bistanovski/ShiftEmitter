@@ -1,6 +1,8 @@
 import QtQuick 2.9
 import ShiftRayReceptor 1.0
 
+import "../elements"
+
 ShiftReceptor {
     id: rootReceptor
 
@@ -15,12 +17,12 @@ ShiftReceptor {
 
         Component.onCompleted: {
             connectReceptor();
-            startListening();
         }
 
         onCompassReadingChanged: {
             rootReceptor.azimuthValue = azimuth
             rootReceptor.calibrationLevelValue = calibrationLevel
+            TelemetryTransporter.sendCompassTelemetry(azimuth, calibrationLevel)
         }
     }
 
@@ -40,5 +42,13 @@ ShiftReceptor {
         anchors.top: azimuthText.bottom
         text: "Calibration Level: " + rootReceptor.calibrationLevelValue
         horizontalAlignment: Text.AlignHCenter
+    }
+
+    CheckableStreamButton {
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        receptorTarget: compassReceptor
     }
 }

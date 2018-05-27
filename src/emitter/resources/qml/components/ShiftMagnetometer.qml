@@ -1,6 +1,8 @@
 import QtQuick 2.9
 import ShiftRayReceptor 1.0
 
+import "../elements"
+
 ShiftReceptor {
     id: rootReceptor
 
@@ -17,7 +19,6 @@ ShiftReceptor {
 
         Component.onCompleted: {
             connectReceptor();
-            startListening();
         }
 
         onMagneticFluxChanged: {
@@ -25,6 +26,7 @@ ShiftReceptor {
             rootReceptor.yFluxValue = yFlux
             rootReceptor.zFluxValue = zFlux
             rootReceptor.calibrationLevel = calibrationLevel
+            TelemetryTransporter.sendMagnetometerTelemetry(xFlux, yFlux, zFlux, calibrationLevel)
         }
     }
 
@@ -62,5 +64,13 @@ ShiftReceptor {
         anchors.top: zFluxText.bottom
         text: "Calibration: " + rootReceptor.calibrationLevel
         horizontalAlignment: Text.AlignHCenter
+    }
+
+    CheckableStreamButton {
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        receptorTarget: magnetoMeter
     }
 }

@@ -25,6 +25,12 @@ void LightReceptor::startListening()
     qDebug() << "LightSensor Listening:" << (isListening() ? "true" : "false");
 }
 
+void LightReceptor::stopListening()
+{
+    m_lightSensor.stop();
+    setIsListening(false);
+}
+
 qreal LightReceptor::fieldOfView() const
 {
     return m_lightSensor.fieldOfView();

@@ -25,5 +25,6 @@
         <file>qml/components/ShiftAmbientLight.qml</file>
         <file>qml/components/ShiftReceptor.qml</file>
         <file>qml/components/ShiftMagnetometer.qml</file>
+        <file>qml/elements/CheckableStreamButton.qml</file>
     </qresource>
 </RCC>

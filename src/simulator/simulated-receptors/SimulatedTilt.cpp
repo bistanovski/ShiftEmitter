@@ -10,7 +10,8 @@ SimulatedTilt::SimulatedTilt(QObject *parent) : TiltReceptor(parent)
 
 SimulatedTilt::~SimulatedTilt()
 {
-
+    m_workerThread.exit();
+    m_workerThread.wait(1000);
 }
 
 void SimulatedTilt::connectReceptor()
@@ -27,4 +28,10 @@ void SimulatedTilt::startListening()
 {
     setIsListening(true);
     m_workerThread.start();
+}
+
+void SimulatedTilt::stopListening()
+{
+    m_workerThread.exit();
+    m_workerThread.wait(1000);
 }

@@ -4,7 +4,7 @@ include($$PRI_PATH/shared-library.pri)
 
 QT += sensors
 
-contains(DEFINES, ANDROID) {
+contains(DEFINES, SHIFT_ANDROID) {
     ## When Android build is needed, 'quick' must be provided
     ## So the qmlRegisterType<>() method is accessible
     QT += quick

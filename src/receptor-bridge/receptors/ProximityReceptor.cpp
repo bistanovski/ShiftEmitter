@@ -25,6 +25,12 @@ void ProximityReceptor::startListening()
     qDebug() << "Proximity Listening:" << (isListening() ? "true" : "false");
 }
 
+void ProximityReceptor::stopListening()
+{
+    m_proximitySensor.stop();
+    setIsListening(false);
+}
+
 void ProximityReceptor::onReadingChanged()
 {
     qDebug() << "Reading Changed";

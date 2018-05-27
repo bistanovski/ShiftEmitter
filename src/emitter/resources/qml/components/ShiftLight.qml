@@ -1,6 +1,8 @@
 import QtQuick 2.9
 import ShiftRayReceptor 1.0
 
+import "../elements"
+
 ShiftReceptor {
     id: rootReceptor
 
@@ -14,11 +16,11 @@ ShiftReceptor {
 
         Component.onCompleted: {
             connectReceptor();
-            startListening();
         }
 
         onLightReadingChanged: {
             rootReceptor.luxValue = luxValue
+            TelemetryTransporter.sendLightTelemetry(luxValue)
         }
     }
 
@@ -29,5 +31,13 @@ ShiftReceptor {
         anchors.centerIn: parent
         text: "Lux Value: " + rootReceptor.luxValue
         horizontalAlignment: Text.AlignHCenter
+    }
+
+    CheckableStreamButton {
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 20
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        receptorTarget: lightReceptor
     }
 }

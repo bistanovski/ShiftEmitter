@@ -14,6 +14,7 @@ public:
 
     virtual void connectReceptor() override;
     virtual void startListening() override;
+    virtual void stopListening() override;
 
 private slots:
     virtual void onReadingChanged() override;
