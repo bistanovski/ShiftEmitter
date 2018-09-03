@@ -7,7 +7,6 @@
 #include "Utility.hpp"
 #include "ShiftSettings.hpp"
 #include "models/ReceptorsModel.hpp"
-#include "network/RestApiClient.hpp"
 #include "receptor-bridge/ReceptorInfo.hpp"
 #include "network/TelemetryTransporter.hpp"
 #include "receptor-bridge/ReceptorBridge.hpp"
@@ -36,6 +35,11 @@ auto registerQuickComponents = [](const bool &isSimulatorUsed)
 
 int main(int argc, char *argv[])
 {
+
+#ifdef SHIFT_ANDROID
+    qputenv("QT_SCALE_FACTOR", "0.85");
+#endif
+
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
@@ -59,9 +63,6 @@ int main(int argc, char *argv[])
 
     QObject::connect(&settings, &ShiftSettings::usingSimulatorChanged, registerComponentsAndModel);
     registerComponentsAndModel();
-
-    RestApiClient restClient;
-    rootContext->setContextProperty("RestApiClient", &restClient);
 
     engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
 

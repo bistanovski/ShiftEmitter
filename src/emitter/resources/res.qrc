@@ -26,5 +26,7 @@
         <file>qml/components/ShiftReceptor.qml</file>
         <file>qml/components/ShiftMagnetometer.qml</file>
         <file>qml/elements/CheckableStreamButton.qml</file>
+        <file>qml/pages/RegistrationPage.qml</file>
+        <file>scripts/RestClient.js</file>
     </qresource>
 </RCC>

@@ -3,9 +3,12 @@
 
 #include <QMap>
 #include <QObject>
+#include <QJsonObject>
 
 auto receptorTypeToFriendlyName(const QByteArray &type);
 auto readingsPerReceptor(const QByteArray &type);
+
+typedef QMap<QString, QPair<QString, QString>> ReadingsMap;
 
 class ReceptorInfo : public QObject
 {
@@ -22,7 +25,9 @@ public:
     QByteArray getType() const;
     QByteArray getIdentifier() const;
     QString getFriendlyName() const;
-    const QMap<QString, QPair<QString, QString>> &getReadings() const;
+    const ReadingsMap &getReadings() const;
+
+    Q_INVOKABLE QJsonObject toJson() const;
 
 signals:
     void typeChanged();
@@ -33,7 +38,7 @@ private:
     QByteArray m_type;
     QByteArray m_identifier;
     QString m_friendlyName;
-    QMap<QString, QPair<QString, QString>> m_receptorReadings;
+    ReadingsMap m_receptorReadings;
 };
 
 #endif // RECEPTORINFO_HPP

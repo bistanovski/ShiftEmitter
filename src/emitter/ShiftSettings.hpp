@@ -20,6 +20,12 @@ class ShiftSettings : public QObject
     Q_PROPERTY(QString osName READ getOSName NOTIFY osNameChanged)
     Q_PROPERTY(QString osVersion READ getOSVersion NOTIFY osVersionChanged)
 
+    Q_PROPERTY(QString userName READ getUserName WRITE setUserName NOTIFY userNameChanged)
+    Q_PROPERTY(QString userEmail READ getUserEmail WRITE setUserEmail NOTIFY userEmailChanged)
+    Q_PROPERTY(QString userFirstName READ getUserFirstName WRITE setUserFirstName NOTIFY userFirstNameChanged)
+    Q_PROPERTY(QString userLastName READ getUserLastName WRITE setUserLastName NOTIFY userLastNameChanged)
+    Q_PROPERTY(QString userPassword READ getUserPassword WRITE setUserPassword NOTIFY userPasswordChanged)
+
 public:
     explicit ShiftSettings(QObject *parent = nullptr);
     virtual ~ShiftSettings();
@@ -50,6 +56,21 @@ public:
     QString getOSVersion() const;
     void setOSVersion(const QString &osVersion);
 
+    QString getUserName() const;
+    void setUserName(const QString &userName);
+
+    QString getUserEmail() const;
+    void setUserEmail(const QString &email);
+
+    QString getUserFirstName() const;
+    void setUserFirstName(const QString &firstName);
+
+    QString getUserLastName() const;
+    void setUserLastName(const QString &lastName);
+
+    QString getUserPassword() const;
+    void setUserPassword(const QString &userPassword);
+
 signals:
     void usingSimulatorChanged();
     void restApiHostChanged();
@@ -60,6 +81,11 @@ signals:
     void osNameChanged();
     void osVersionChanged();
 
+    void userNameChanged();
+    void userEmailChanged();
+    void userFirstNameChanged();
+    void userLastNameChanged();
+    void userPasswordChanged();
 };
 
 #endif // SHIFTSETTINGS_HPP

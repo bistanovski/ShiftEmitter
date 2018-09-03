@@ -1,6 +1,7 @@
 #include "ReceptorInfo.hpp"
 
 #include <QDebug>
+#include <QJsonArray>
 
 auto receptorTypeToFriendlyName(const QByteArray &type)
 {
@@ -123,9 +124,35 @@ QString ReceptorInfo::getFriendlyName() const
     return m_friendlyName;
 }
 
-const QMap<QString, QPair<QString, QString>> &ReceptorInfo::getReadings() const
+const ReadingsMap &ReceptorInfo::getReadings() const
 {
     return m_receptorReadings;
+}
+
+QJsonObject ReceptorInfo::toJson() const
+{
+    QJsonObject receptorObject
+    {
+        {"identifier", QString(m_identifier)},
+        {"type", QString(m_type)},
+        {"friendlyName", m_friendlyName}
+    };
+
+    QJsonArray readingsArray;
+    for(auto kIt = m_receptorReadings.keyBegin(); kIt != m_receptorReadings.keyEnd(); ++kIt)
+    {
+        readingsArray.push_back(std::move(
+                                    QJsonObject
+                                    {
+                                        {"readingName", *kIt},
+                                        {"readingType", m_receptorReadings.value(*kIt).first},
+                                        {"renderingType", m_receptorReadings.value(*kIt).second},
+                                    }
+                                    ));
+    }
+
+    receptorObject.insert("sensorReadings", readingsArray);
+    return receptorObject;
 }
 
 QByteArray ReceptorInfo::getType() const

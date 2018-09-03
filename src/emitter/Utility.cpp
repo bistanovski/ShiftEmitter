@@ -47,7 +47,7 @@ namespace ShiftUtils {
             return QLatin1String("16.04");
         #else
             const auto osv = QOperatingSystemVersion::current();
-            return QString::number(osv.majorVersion()) + QString::number(osv.minorVersion()) + QString::number(osv.microVersion());
+            return QString::number(osv.majorVersion()) + "." + QString::number(osv.minorVersion()) + "." + QString::number(osv.microVersion());
         #endif
     }
 }

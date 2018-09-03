@@ -1,8 +1,11 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
+import QtQuick.Dialogs 1.2
+
+import "../../scripts/RestClient.js" as RestApiClient
 
 ShiftRayPage {
-
+    id: settingsPage
     headerText: qsTr("Settings Page")
 
     CheckBox {
@@ -140,7 +143,24 @@ ShiftRayPage {
         }
 
         onClicked: {
-            RestApiClient.registerDevice("TestDevice@22")
+            console.log("receptorsModel", JSON.stringify(receptorsModel))
+            for (var i = 0; i < receptorsModel.length; ++i) {
+                console.log("User:", JSON.stringify(receptorsModel[i].toJson()));
+            }
+
+//            var responseCallback = function(success, data){
+//                if(success){
+//                    for (var i = 0; i < data.length; ++i) {
+//                        console.log("User:", JSON.stringify(data[i]));
+//                    }
+//                }
+//                else{
+//                    console.log("ERROR FETCHING USERS:", data);
+//                    messageDialog.text = data;
+//                    messageDialog.open();
+//                }
+//            }
+//            RestApiClient.getAllUsers(responseCallback);
         }
     }
 
@@ -153,6 +173,7 @@ ShiftRayPage {
     }
 
     Text {
+        id: icons8text
         anchors.left: initialText.right
         anchors.top: initialText.top
         text: "icons8"

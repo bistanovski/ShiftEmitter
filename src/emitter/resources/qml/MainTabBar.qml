@@ -6,10 +6,16 @@ TabBar {
     TabButton {
         text: qsTr("Sensors")
     }
+
     TabButton {
         text: qsTr("Streaming")
     }
+
     TabButton {
         text: qsTr("Settings")
+    }
+
+    TabButton {
+        text: qsTr("Register")
     }
 }

@@ -25,4 +25,8 @@ SwipeView {
     SettingsPage {
         id: settingsPage
     }
+
+    RegistrationPage {
+        id: registrationPage
+    }
 }
