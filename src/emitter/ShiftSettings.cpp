@@ -5,20 +5,24 @@
 
 Q_GLOBAL_STATIC_WITH_ARGS(QSettings, globalSettings, ("ShiftRay", "ShiftEmitter"))
 
-QLatin1String SIMULATOR_KEY("usedSimulator");
-QLatin1String REST_API_HOST_KEY("restApiHost");
-QLatin1String REST_API_PORT_KEY("restApiPort");
-QLatin1String TELEMETRY_HOST_KEY("telemetryHost");
-QLatin1String TELEMETRY_PORT_KEY("telemetryPort");
-QLatin1String DEVICE_UUID_KEY("deviceUUID");
-QLatin1String OS_NAME_KEY("osName");
-QLatin1String OS_VERSION_KEY("osVersion");
+const QLatin1String SIMULATOR_KEY("usedSimulator");
+const QLatin1String REST_API_HOST_KEY("restApiHost");
+const QLatin1String REST_API_PORT_KEY("restApiPort");
+const QLatin1String TELEMETRY_HOST_KEY("telemetryHost");
+const QLatin1String TELEMETRY_PORT_KEY("telemetryPort");
 
-QLatin1String USER_NAME_KEY("userName");
-QLatin1String USER_EMAIL_KEY("userEmail");
-QLatin1String USER_FIRST_NAME_KEY("userFirstName");
-QLatin1String USER_LAST_NAME_KEY("userLastName");
-QLatin1String USER_PASSWORD_KEY("userPassword");
+const QLatin1String DEVICE_UUID_KEY("deviceUUID");
+const QLatin1String DEVICE_NAME_KEY("deviceName");
+const QLatin1String DEVICE_TYPE_KEY("deviceType");
+const QLatin1String OS_NAME_KEY("osName");
+const QLatin1String OS_VERSION_KEY("osVersion");
+
+const QLatin1String USER_REGISTERED_KEY("isUserRegistered");
+const QLatin1String USER_NAME_KEY("userName");
+const QLatin1String USER_EMAIL_KEY("userEmail");
+const QLatin1String USER_FIRST_NAME_KEY("userFirstName");
+const QLatin1String USER_LAST_NAME_KEY("userLastName");
+const QLatin1String USER_PASSWORD_KEY("userPassword");
 
 ShiftSettings::ShiftSettings(QObject *parent) : QObject(parent)
 {
@@ -90,15 +94,37 @@ void ShiftSettings::setTelemetryPort(const int &port)
     emit telemetryPortChanged();
 }
 
-QByteArray ShiftSettings::getDeviceUUID() const
+QString ShiftSettings::getDeviceUUID() const
 {
-    return globalSettings->value(DEVICE_UUID_KEY, QByteArray()).toByteArray();
+    return globalSettings->value(DEVICE_UUID_KEY, QString()).toString();
 }
 
-void ShiftSettings::setDeviceUUID(const QByteArray &deviceUUID)
+void ShiftSettings::setDeviceUUID(const QString &deviceUUID)
 {
     globalSettings->setValue(DEVICE_UUID_KEY, deviceUUID);
     emit deviceUUIDChanged();
+}
+
+QString ShiftSettings::getDeviceName() const
+{
+    return globalSettings->value(DEVICE_NAME_KEY, QString()).toString();
+}
+
+void ShiftSettings::setDeviceName(const QString &deviceName)
+{
+    globalSettings->setValue(DEVICE_NAME_KEY, deviceName);
+    emit deviceNameChanged();
+}
+
+QString ShiftSettings::getDeviceType() const
+{
+    return globalSettings->value(DEVICE_TYPE_KEY, QString()).toString();
+}
+
+void ShiftSettings::setDeviceType(const QString &deviceType)
+{
+    globalSettings->setValue(DEVICE_TYPE_KEY, deviceType);
+    emit deviceTypeChanged();
 }
 
 QString ShiftSettings::getOSName() const
@@ -121,6 +147,17 @@ void ShiftSettings::setOSVersion(const QString &osVersion)
 {
     globalSettings->setValue(OS_VERSION_KEY, osVersion);
     emit osVersionChanged();
+}
+
+bool ShiftSettings::getIsUserRegistered() const
+{
+    return globalSettings->value(USER_REGISTERED_KEY, false).toBool();
+}
+
+void ShiftSettings::setIsUserRegistered(bool isRegistered)
+{
+    globalSettings->setValue(USER_REGISTERED_KEY, isRegistered);
+    emit userIsRegisteredChanged();
 }
 
 QString ShiftSettings::getUserName() const

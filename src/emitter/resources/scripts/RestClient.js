@@ -11,7 +11,7 @@ var HTTP_METHOD = {
 function sendRequest(httpMethod, url, data, onResponseCallback) {
     var Backend = new XMLHttpRequest();
 
-    Backend.open(httpMethod, restServerEndpoint + "/userss");
+    Backend.open(httpMethod, restServerEndpoint + "/users");
     Backend.onreadystatechange = function() {
         if (Backend.readyState === XMLHttpRequest.DONE) {
             if(null !== onResponseCallback) {

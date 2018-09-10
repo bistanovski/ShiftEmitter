@@ -5,6 +5,15 @@ ShiftRayPage {
     id: rootPage
     headerText: qsTr("Registration Page")
 
+    function saveUserToSettings() {
+        ShiftSettings.isUserRegistered = true;
+        ShiftSettings.userName = usernameInput.text;
+        ShiftSettings.userEmail = emailInput.text;
+        ShiftSettings.userFirstName = firstNameInput.text;
+        ShiftSettings.userLastName = lastNameInput.text;
+        ShiftSettings.userPassword = passwordInput.text;
+    }
+
     Text {
         id: usernameLabel
         text: qsTr("Username:")
@@ -54,7 +63,7 @@ ShiftRayPage {
     }
 
     TextField {
-        id: fNameInput
+        id: firstNameInput
         width: parent.width/2
         height: 50
         anchors.top: fNameLabel.bottom
@@ -68,13 +77,13 @@ ShiftRayPage {
     Text {
         id: lNameLabel
         text: qsTr("Last name:")
-        anchors.top: fNameInput.bottom
+        anchors.top: firstNameInput.bottom
         anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
     TextField {
-        id: lNameInput
+        id: lastNameInput
         width: parent.width/2
         height: 50
         anchors.top: lNameLabel.bottom
@@ -88,7 +97,7 @@ ShiftRayPage {
     Text {
         id: passwordLabel
         text: qsTr("Password:")
-        anchors.top: lNameInput.bottom
+        anchors.top: lastNameInput.bottom
         anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
     }
@@ -108,19 +117,34 @@ ShiftRayPage {
 
     Button {
         id: registrationButton
-        height: 50
-        width: 100
         anchors.top: passwordInput.bottom
         anchors.topMargin: 5
         anchors.horizontalCenter: parent.horizontalCenter
-        text: qsTr("Register")
+        text: qsTr("Register User")
 
         onClicked: {
-            ShiftSettings.userName = usernameInput.text
-            ShiftSettings.userEmail = emailInput.text
-            ShiftSettings.userFirstName = fNameInput.text
-            ShiftSettings.userLastName = lNameInput.text
-            ShiftSettings.userPassword = passwordInput.text
+            var registerUserData = {
+                'username' : usernameInput.text,
+                'email' : emailInput.text,
+                'password' : passwordInput.text,
+                'first_name' : firstNameInput.text,
+                'last_name' : lastNameInput.text
+            }
+
+            RestClient.registerUser(JSON.stringify(registerUserData));
+        }
+    }
+
+    Connections {
+        target: RestClient
+        onRegisterUserResponse : {
+            if(succeed) {
+                console.log("Success:", data);
+                rootPage.saveUserToSettings();
+            }
+            else {
+                console.log("Error!");
+            }
         }
     }
 }

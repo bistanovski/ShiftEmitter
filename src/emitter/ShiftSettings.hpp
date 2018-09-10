@@ -9,7 +9,9 @@ class ShiftSettings : public QObject
     Q_OBJECT
 
     Q_PROPERTY(bool usingSimulator READ isSimulatorUsed WRITE setIsUsedSimulator NOTIFY usingSimulatorChanged)
-    Q_PROPERTY(QByteArray deviceUUID READ getDeviceUUID NOTIFY deviceUUIDChanged)
+    Q_PROPERTY(QString deviceUUID READ getDeviceUUID NOTIFY deviceUUIDChanged)
+    Q_PROPERTY(QString deviceName READ getDeviceName WRITE setDeviceName NOTIFY deviceNameChanged)
+    Q_PROPERTY(QString deviceType READ getDeviceType WRITE setDeviceType NOTIFY deviceTypeChanged)
 
     Q_PROPERTY(QString restApiHost READ getRestApiHost WRITE setRestApiHost NOTIFY restApiHostChanged)
     Q_PROPERTY(int restApiPort READ getRestApiPort WRITE setRestApiPort NOTIFY restApiPortChanged)
@@ -20,6 +22,7 @@ class ShiftSettings : public QObject
     Q_PROPERTY(QString osName READ getOSName NOTIFY osNameChanged)
     Q_PROPERTY(QString osVersion READ getOSVersion NOTIFY osVersionChanged)
 
+    Q_PROPERTY(bool isUserRegistered READ getIsUserRegistered WRITE setIsUserRegistered NOTIFY userIsRegisteredChanged)
     Q_PROPERTY(QString userName READ getUserName WRITE setUserName NOTIFY userNameChanged)
     Q_PROPERTY(QString userEmail READ getUserEmail WRITE setUserEmail NOTIFY userEmailChanged)
     Q_PROPERTY(QString userFirstName READ getUserFirstName WRITE setUserFirstName NOTIFY userFirstNameChanged)
@@ -47,14 +50,23 @@ public:
     int getTelemetryPort() const;
     void setTelemetryPort(const int &port);
 
-    QByteArray getDeviceUUID() const;
-    void setDeviceUUID(const QByteArray &deviceUUID);
+    QString getDeviceUUID() const;
+    void setDeviceUUID(const QString &deviceUUID);
+
+    QString getDeviceName() const;
+    void setDeviceName(const QString &deviceName);
+
+    QString getDeviceType() const;
+    void setDeviceType(const QString &deviceType);
 
     QString getOSName() const;
     void setOSName(const QString &osName);
 
     QString getOSVersion() const;
     void setOSVersion(const QString &osVersion);
+
+    bool getIsUserRegistered() const;
+    void setIsUserRegistered(bool isRegistered);
 
     QString getUserName() const;
     void setUserName(const QString &userName);
@@ -77,10 +89,14 @@ signals:
     void restApiPortChanged();
     void telemetryHostChanged();
     void telemetryPortChanged();
+
     void deviceUUIDChanged();
+    void deviceNameChanged();
+    void deviceTypeChanged();
     void osNameChanged();
     void osVersionChanged();
 
+    void userIsRegisteredChanged();
     void userNameChanged();
     void userEmailChanged();
     void userFirstNameChanged();

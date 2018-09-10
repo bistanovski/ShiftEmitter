@@ -133,9 +133,10 @@ QJsonObject ReceptorInfo::toJson() const
 {
     QJsonObject receptorObject
     {
-        {"identifier", QString(m_identifier)},
+//        {"identifier", QString(m_identifier)},
         {"type", QString(m_type)},
-        {"friendlyName", m_friendlyName}
+        {"sensor_name", m_friendlyName},
+        {"number_of_readings", m_receptorReadings.count()}
     };
 
     QJsonArray readingsArray;
@@ -144,14 +145,14 @@ QJsonObject ReceptorInfo::toJson() const
         readingsArray.push_back(std::move(
                                     QJsonObject
                                     {
-                                        {"readingName", *kIt},
-                                        {"readingType", m_receptorReadings.value(*kIt).first},
-                                        {"renderingType", m_receptorReadings.value(*kIt).second},
+                                        {"reading_name", *kIt},
+                                        {"reading_type", m_receptorReadings.value(*kIt).first},
+                                        {"rendering_type", m_receptorReadings.value(*kIt).second},
                                     }
                                     ));
     }
 
-    receptorObject.insert("sensorReadings", readingsArray);
+    receptorObject.insert("sensor_readings", readingsArray);
     return receptorObject;
 }
 

@@ -35,7 +35,7 @@ void TransportWorker::initializeConnection(const QString brokerHost, const int b
 {
     m_mqttCLient.reset(new QMqttClient());
     m_mqttCLient->setHostname(brokerHost);
-    m_mqttCLient->setPort(brokerPort);
+    m_mqttCLient->setPort(static_cast<quint16>(brokerPort));
     m_mqttCLient->setUsername("test");
     m_mqttCLient->setPassword("test");
 

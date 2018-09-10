@@ -1,11 +1,23 @@
+MODELS_SOURCES_DIR = $$PWD/models
+NETWORK_SOURCES_DIR = $$PWD/network
+REQUESTS_SOURCES_DIR = $${NETWORK_SOURCES_DIR}/requests
+
 HEADERS += \
     $$PWD/Utility.hpp \
     $$PWD/ShiftSettings.hpp \
-    $$PWD/models/ReceptorsModel.hpp \
-    $$PWD/network/TelemetryTransporter.hpp
+    $${MODELS_SOURCES_DIR}/ReceptorsModel.hpp \
+    $${NETWORK_SOURCES_DIR}/TelemetryTransporter.hpp \
+    $${NETWORK_SOURCES_DIR}/RestClient.hpp \
+    $${REQUESTS_SOURCES_DIR}/AbstractWebRequest.hpp \
+    $${REQUESTS_SOURCES_DIR}/RegisterDeviceRequest.hpp \
+    $${REQUESTS_SOURCES_DIR}/RegisterUserRequest.hpp
 
 SOURCES += main.cpp \
     $$PWD/Utility.cpp \
     $$PWD/ShiftSettings.cpp \
-    $$PWD/models/ReceptorsModel.cpp \
-    $$PWD/network/TelemetryTransporter.cpp
+    $${MODELS_SOURCES_DIR}/ReceptorsModel.cpp \
+    $${NETWORK_SOURCES_DIR}/TelemetryTransporter.cpp \
+    $${NETWORK_SOURCES_DIR}/RestClient.cpp \
+    $${REQUESTS_SOURCES_DIR}/AbstractWebRequest.cpp \
+    $${REQUESTS_SOURCES_DIR}/RegisterDeviceRequest.cpp \
+    $${REQUESTS_SOURCES_DIR}/RegisterUserRequest.cpp

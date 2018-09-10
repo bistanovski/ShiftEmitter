@@ -6,6 +6,7 @@
 
 #include "Utility.hpp"
 #include "ShiftSettings.hpp"
+#include "network/RestClient.hpp"
 #include "models/ReceptorsModel.hpp"
 #include "receptor-bridge/ReceptorInfo.hpp"
 #include "network/TelemetryTransporter.hpp"
@@ -48,6 +49,9 @@ int main(int argc, char *argv[])
 
     TelemetryTransporter telTransporter;
     telTransporter.registerQmlTransporter(rootContext);
+
+    RestClient restClient;
+    restClient.registerQmlRestClient(rootContext);
 
     ReceptorsModel receptorsModel;
     ShiftSettings settings;
