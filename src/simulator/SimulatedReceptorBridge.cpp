@@ -8,6 +8,8 @@
 #include "simulated-receptors/SimulatedTilt.hpp"
 #include "simulated-receptors/SimulatedLight.hpp"
 #include "simulated-receptors/SimulatedCompass.hpp"
+#include "simulated-receptors/SimulatedRotation.hpp"
+#include "simulated-receptors/SimulatedGyroscope.hpp"
 #include "simulated-receptors/SimulatedProximity.hpp"
 #include "simulated-receptors/SimulatedOrientation.hpp"
 #include "simulated-receptors/SimulatedAmbientLight.hpp"
@@ -26,9 +28,11 @@ namespace SimulatedReceptorBridge
         insertPairOfByteArraysInVector(sensors, "QCompass", "simulated_compass");
         insertPairOfByteArraysInVector(sensors, "QProximitySensor", "simulated_proximity");
         insertPairOfByteArraysInVector(sensors, "QOrientationSensor", "simulated_orientation");
+        insertPairOfByteArraysInVector(sensors, "QRotationSensor", "simulated_rotation");
         insertPairOfByteArraysInVector(sensors, "QAmbientLightSensor", "simulated_ambient_light");
         insertPairOfByteArraysInVector(sensors, "QMagnetometer", "simulated_magnetometer");
         insertPairOfByteArraysInVector(sensors, "QAccelerometer", "simulated_accelerometer");
+        insertPairOfByteArraysInVector(sensors, "QGyroscope", "simulated_gyroscope");
 
         for(const auto &simulatedSensor : qAsConst(sensors)) {
             const auto simulatedType = simulatedSensor.first;
@@ -46,6 +50,8 @@ namespace SimulatedReceptorBridge
         qmlRegisterType<SimulatedTilt>("ShiftRayReceptor", 1, 0, "TiltReceptor");
         qmlRegisterType<SimulatedLight>("ShiftRayReceptor", 1, 0, "LightReceptor");
         qmlRegisterType<SimulatedCompass>("ShiftRayReceptor", 1, 0, "CompassReceptor");
+        qmlRegisterType<SimulatedRotation>("ShiftRayReceptor", 1, 0, "RotationReceptor");
+        qmlRegisterType<SimulatedGyroscope>("ShiftRayReceptor", 1, 0, "GyroscopeReceptor");
         qmlRegisterType<SimulatedProximity>("ShiftRayReceptor", 1, 0, "ProximityReceptor");
         qmlRegisterType<SimulatedOrientation>("ShiftRayReceptor", 1, 0, "OrientationReceptor");
         qmlRegisterType<SimulatedAmbientLight>("ShiftRayReceptor", 1, 0, "AmbientLightReceptor");

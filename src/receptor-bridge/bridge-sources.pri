@@ -10,6 +10,8 @@ HEADERS += \
     $${RECEPTORS_SRC_DIR}/TiltReceptor.hpp \
     $${RECEPTORS_SRC_DIR}/AccelerometerReceptor.hpp \
     $${RECEPTORS_SRC_DIR}/MagnetometerReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/RotationReceptor.hpp \
+    $${RECEPTORS_SRC_DIR}/GyroscopeReceptor.hpp \
     ReceptorInfo.hpp \
     ReceptorBridge.hpp \
     ReceptorFactory.hpp \
@@ -24,6 +26,8 @@ SOURCES += \
     $${RECEPTORS_SRC_DIR}/TiltReceptor.cpp \
     $${RECEPTORS_SRC_DIR}/AccelerometerReceptor.cpp \
     $${RECEPTORS_SRC_DIR}/MagnetometerReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/RotationReceptor.cpp \
+    $${RECEPTORS_SRC_DIR}/GyroscopeReceptor.cpp \
     ReceptorInfo.cpp \
     ReceptorBridge.cpp \
     ReceptorFactory.cpp

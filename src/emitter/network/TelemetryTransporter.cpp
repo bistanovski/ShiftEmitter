@@ -13,6 +13,8 @@ QString TransportWorker::COMPASS = QStringLiteral("Compass");
 QString TransportWorker::ACCELEROMETER = QStringLiteral("Accelerometer");
 QString TransportWorker::MAGNETOMETER = QStringLiteral("Magnetometer");
 QString TransportWorker::ORIENTATION = QStringLiteral("Orientation");
+QString TransportWorker::ROTATION = QStringLiteral("Rotation");
+QString TransportWorker::GYROSCOPE = QStringLiteral("Gyroscope");
 
 TransportWorker::TransportWorker(QObject *parent) : QObject(parent)
 {
@@ -24,6 +26,8 @@ TransportWorker::TransportWorker(QObject *parent) : QObject(parent)
     m_topicsMap.insert(ACCELEROMETER, QMqttTopicName(ACCELEROMETER));
     m_topicsMap.insert(MAGNETOMETER, QMqttTopicName(MAGNETOMETER));
     m_topicsMap.insert(ORIENTATION, QMqttTopicName(ORIENTATION));
+    m_topicsMap.insert(ROTATION, QMqttTopicName(ROTATION));
+    m_topicsMap.insert(GYROSCOPE, QMqttTopicName(GYROSCOPE));
 }
 
 TransportWorker::~TransportWorker()
@@ -131,6 +135,18 @@ void TelemetryTransporter::sendTiltTelemetry(const qreal xRotation, const qreal 
 {
     const auto pubMessage = QString("xRotation:" + QString::number(xRotation) + ";yRotation:" + QString::number(yRotation));
     emit publishNewMessage(TransportWorker::TILT, pubMessage.toUtf8());
+}
+
+void TelemetryTransporter::sendRotationTelemetry(const qreal xValue, const qreal yValue, const qreal zValue)
+{
+    const auto pubMessage = QString("xVal:" + QString::number(xValue) + ";yVal:" + QString::number(yValue) +";zVal:" + QString::number(zValue));
+    emit publishNewMessage(TransportWorker::ROTATION, pubMessage.toUtf8());
+}
+
+void TelemetryTransporter::sendGyroscopeTelemetry(const qreal xValue, const qreal yValue, const qreal zValue)
+{
+    const auto pubMessage = QString("xVal:" + QString::number(xValue) + ";yVal:" + QString::number(yValue) +";zVal:" + QString::number(zValue));
+    emit publishNewMessage(TransportWorker::GYROSCOPE, pubMessage.toUtf8());
 }
 
 bool TelemetryTransporter::connectedToServer() const

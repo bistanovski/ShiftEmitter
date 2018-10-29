@@ -22,6 +22,8 @@ public:
     static QString ACCELEROMETER;
     static QString MAGNETOMETER;
     static QString ORIENTATION;
+    static QString ROTATION;
+    static QString GYROSCOPE;
 
     explicit TransportWorker(QObject *parent = nullptr);
     virtual ~TransportWorker();
@@ -59,6 +61,8 @@ public:
     Q_INVOKABLE void sendOrientationTelemetry(const int orientation);
     Q_INVOKABLE void sendProximityTelemetry(const bool close);
     Q_INVOKABLE void sendTiltTelemetry(const qreal xRotation, const qreal yRotation);
+    Q_INVOKABLE void sendRotationTelemetry(const qreal xValue, const qreal yValue, const qreal zValue);
+    Q_INVOKABLE void sendGyroscopeTelemetry(const qreal xValue, const qreal yValue, const qreal zValue);
 
     bool connectedToServer() const;
     void setConnectedToServer(const bool connected);

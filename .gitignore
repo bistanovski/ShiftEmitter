@@ -37,3 +37,7 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
+*.srctrlbm
+*.srctrldb
+*.srctrlprj
+/compile_commands.json

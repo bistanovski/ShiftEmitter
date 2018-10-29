@@ -9,6 +9,8 @@
 #include "receptors/TiltReceptor.hpp"
 #include "receptors/LightReceptor.hpp"
 #include "receptors/CompassReceptor.hpp"
+#include "receptors/RotationReceptor.hpp"
+#include "receptors/GyroscopeReceptor.hpp"
 #include "receptors/ProximityReceptor.hpp"
 #include "receptors/OrientationReceptor.hpp"
 #include "receptors/AmbientLightReceptor.hpp"
@@ -40,6 +42,8 @@ namespace ReceptorBridge
         qmlRegisterType<TiltReceptor>("ShiftRayReceptor", 1, 0, "TiltReceptor");
         qmlRegisterType<LightReceptor>("ShiftRayReceptor", 1, 0, "LightReceptor");
         qmlRegisterType<CompassReceptor>("ShiftRayReceptor", 1, 0, "CompassReceptor");
+        qmlRegisterType<RotationReceptor>("ShiftRayReceptor", 1, 0, "RotationReceptor");
+        qmlRegisterType<GyroscopeReceptor>("ShiftRayReceptor", 1, 0, "GyroscopeReceptor");
         qmlRegisterType<ProximityReceptor>("ShiftRayReceptor", 1, 0, "ProximityReceptor");
         qmlRegisterType<OrientationReceptor>("ShiftRayReceptor", 1, 0, "OrientationReceptor");
         qmlRegisterType<AmbientLightReceptor>("ShiftRayReceptor", 1, 0, "AmbientLightReceptor");

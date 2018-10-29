@@ -6,6 +6,7 @@
 class Receptor : public QObject
 {
     Q_OBJECT
+
     Q_PROPERTY(QByteArray receptorType READ getType WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(QByteArray receptorIdentifier READ getIdentifier WRITE setIdentifier NOTIFY identifierChanged)
     Q_PROPERTY(QString friendlyName READ getFriendlyName WRITE setFriendlyName NOTIFY friendlyNameChanged)

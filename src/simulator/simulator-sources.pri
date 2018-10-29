@@ -9,6 +9,8 @@ HEADERS += \
     $${SIMULATOR_SRC_DIR}/SimulatedOrientation.hpp \
     $${SIMULATOR_SRC_DIR}/SimulatedProximity.hpp \
     $${SIMULATOR_SRC_DIR}/SimulatedTilt.hpp \
+    $${SIMULATOR_SRC_DIR}/SimulatedRotation.hpp \
+    $${SIMULATOR_SRC_DIR}/SimulatedGyroscope.hpp \
     SimulatedReceptorBridge.hpp
 
 SOURCES += \
@@ -20,4 +22,6 @@ SOURCES += \
     $${SIMULATOR_SRC_DIR}/SimulatedOrientation.cpp \
     $${SIMULATOR_SRC_DIR}/SimulatedProximity.cpp \
     $${SIMULATOR_SRC_DIR}/SimulatedTilt.cpp \
+    $${SIMULATOR_SRC_DIR}/SimulatedRotation.cpp \
+    $${SIMULATOR_SRC_DIR}/SimulatedGyroscope.cpp \
     SimulatedReceptorBridge.cpp
