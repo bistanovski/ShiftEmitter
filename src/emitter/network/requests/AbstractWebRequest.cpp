@@ -66,6 +66,8 @@ void AbstractWebRequest::get()
     sendRequest();
 }
 
+#include <QJsonDocument>
+
 void AbstractWebRequest::post(const QByteArray &out)
 {
     if(Method::UNSET_METHOD != m_method)
@@ -73,6 +75,7 @@ void AbstractWebRequest::post(const QByteArray &out)
         qWarning() << "AWR: ERROR: WebRequest is not mutable. Aborting second call to sendRequest";
         return;
     }
+    qDebug().noquote() << "DATA:" << QJsonDocument::fromJson(out).toJson(QJsonDocument::Indented);
     this->m_outData = out;
     m_method = Method::POST;
     sendRequest();

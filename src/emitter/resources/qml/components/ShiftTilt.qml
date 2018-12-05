@@ -22,7 +22,7 @@ ShiftReceptor {
         onTiltDetected: {
             rootReceptor.xRotationValue = xRotation
             rootReceptor.yRotationValue = yRotation
-            TelemetryTransporter.sendTiltTelemetry(xRotation, yRotation)
+            AmqpClient.sendTiltTelemetry(xRotation, yRotation)
         }
     }
 

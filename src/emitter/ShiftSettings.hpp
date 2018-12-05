@@ -17,7 +17,10 @@ class ShiftSettings : public QObject
     Q_PROPERTY(int restApiPort READ getRestApiPort WRITE setRestApiPort NOTIFY restApiPortChanged)
 
     Q_PROPERTY(QString telemetryHost READ getTelemetryHost WRITE setTelemetryHost NOTIFY telemetryHostChanged)
+    Q_PROPERTY(QString telemetryVirtualHost READ getTelemetryVirtualHost WRITE setTelemetryVirtualHost NOTIFY telemetryVirtualHostChanged)
     Q_PROPERTY(int telemetryPort READ getTelemetryPort WRITE setTelemetryPort NOTIFY telemetryPortChanged)
+    Q_PROPERTY(QString telemetryUsername READ getTelemetryUsername WRITE setTelemetryUsername NOTIFY telemetryUsernameChanged)
+    Q_PROPERTY(QString telemetryPassword READ getTelemetryPassword WRITE setTelemetryPassword NOTIFY telemetryPasswordChanged)
 
     Q_PROPERTY(QString osName READ getOSName NOTIFY osNameChanged)
     Q_PROPERTY(QString osVersion READ getOSVersion NOTIFY osVersionChanged)
@@ -47,8 +50,17 @@ public:
     QString getTelemetryHost() const;
     void setTelemetryHost(const QString &host);
 
+    QString getTelemetryVirtualHost() const;
+    void setTelemetryVirtualHost(const QString &host);
+
     int getTelemetryPort() const;
     void setTelemetryPort(const int &port);
+
+    QString getTelemetryUsername() const;
+    void setTelemetryUsername(const QString &userName);
+
+    QString getTelemetryPassword() const;
+    void setTelemetryPassword(const QString &password);
 
     QString getDeviceUUID() const;
     void setDeviceUUID(const QString &deviceUUID);
@@ -87,8 +99,12 @@ signals:
     void usingSimulatorChanged();
     void restApiHostChanged();
     void restApiPortChanged();
+
     void telemetryHostChanged();
+    void telemetryVirtualHostChanged();
     void telemetryPortChanged();
+    void telemetryUsernameChanged();
+    void telemetryPasswordChanged();
 
     void deviceUUIDChanged();
     void deviceNameChanged();

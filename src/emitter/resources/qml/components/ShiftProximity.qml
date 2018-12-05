@@ -20,7 +20,7 @@ ShiftReceptor {
 
         onSomethingIsCloseChanged: {
             rootReceptor.somethingClose = close
-            TelemetryTransporter.sendProximityTelemetry(close)
+            AmqpClient.sendProximityTelemetry(close)
         }
     }
 

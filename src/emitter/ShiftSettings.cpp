@@ -8,8 +8,12 @@ Q_GLOBAL_STATIC_WITH_ARGS(QSettings, globalSettings, ("ShiftRay", "ShiftEmitter"
 const QLatin1String SIMULATOR_KEY("usedSimulator");
 const QLatin1String REST_API_HOST_KEY("restApiHost");
 const QLatin1String REST_API_PORT_KEY("restApiPort");
+
 const QLatin1String TELEMETRY_HOST_KEY("telemetryHost");
+const QLatin1String TELEMETRY_VIRTUAL_HOST_KEY("telemetryVirtualHost");
 const QLatin1String TELEMETRY_PORT_KEY("telemetryPort");
+const QLatin1String TELEMETRY_USERNAME_KEY("telemetryUsername");
+const QLatin1String TELEMETRY_PASSWORD_KEY("telemetryPassword");
 
 const QLatin1String DEVICE_UUID_KEY("deviceUUID");
 const QLatin1String DEVICE_NAME_KEY("deviceName");
@@ -83,6 +87,17 @@ void ShiftSettings::setTelemetryHost(const QString &host)
     emit telemetryHostChanged();
 }
 
+QString ShiftSettings::getTelemetryVirtualHost() const
+{
+    return globalSettings->value(TELEMETRY_VIRTUAL_HOST_KEY, QString("/")).toString();
+}
+
+void ShiftSettings::setTelemetryVirtualHost(const QString &host)
+{
+    globalSettings->setValue(TELEMETRY_VIRTUAL_HOST_KEY, host);
+    emit telemetryVirtualHostChanged();
+}
+
 int ShiftSettings::getTelemetryPort() const
 {
     return globalSettings->value(TELEMETRY_PORT_KEY, 1883).toInt();
@@ -92,6 +107,28 @@ void ShiftSettings::setTelemetryPort(const int &port)
 {
     globalSettings->setValue(TELEMETRY_PORT_KEY, port);
     emit telemetryPortChanged();
+}
+
+QString ShiftSettings::getTelemetryUsername() const
+{
+    return globalSettings->value(TELEMETRY_USERNAME_KEY, QString("")).toString();
+}
+
+void ShiftSettings::setTelemetryUsername(const QString &userName)
+{
+    globalSettings->setValue(TELEMETRY_USERNAME_KEY, userName);
+    emit telemetryUsernameChanged();
+}
+
+QString ShiftSettings::getTelemetryPassword() const
+{
+    return globalSettings->value(TELEMETRY_PASSWORD_KEY, QString("")).toString();
+}
+
+void ShiftSettings::setTelemetryPassword(const QString &password)
+{
+    globalSettings->setValue(TELEMETRY_PASSWORD_KEY, password);
+    emit telemetryPasswordChanged();
 }
 
 QString ShiftSettings::getDeviceUUID() const

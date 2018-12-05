@@ -33,7 +33,7 @@ ShiftReceptor {
 
         onOrientationChanged: {
             rootReceptor.orientation = orientationToString(orientation)
-            TelemetryTransporter.sendOrientationTelemetry(orientation)
+            AmqpClient.sendOrientationTelemetry(orientation)
         }
     }
 

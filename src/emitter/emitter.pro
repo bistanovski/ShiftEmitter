@@ -8,12 +8,16 @@ TEMPLATE = app
 TARGET   = ShiftEmitter
 DESTDIR  = $${ROOT_BUILD}
 INCLUDEPATH += $$SRC_PATH
+INCLUDEPATH += $$EXTERNAL_PATH/libqamqp/qamqp/src
 
 #Simulator
 LIBS += -L$${ROOT_BUILD}/libs -lsimulator
 
 #Receptor
 LIBS += -L$${ROOT_BUILD}/libs -lreceptor-bridge
+
+#libqamqp
+LIBS += -L$${ROOT_BUILD}/libs -lqamqp
 
 RESOURCES += \
     resources/res.qrc

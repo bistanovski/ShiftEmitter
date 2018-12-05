@@ -1,6 +1,5 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
-import QtQuick.Dialogs 1.2
 
 ShiftRayPage {
     id: settingsPage
@@ -11,6 +10,32 @@ ShiftRayPage {
         ShiftSettings.telemetryPort = parseInt(portInput.text);
         ShiftSettings.deviceName = deviceNameInput.text;
         ShiftSettings.deviceType = deviceTypeInput.text;
+    }
+
+    function generateDetailsForRegister() {
+        var registerDeviceData = {
+            'user_name' : ShiftSettings.userName,
+            'device_id' : ShiftSettings.deviceUUID,
+            'name' : deviceNameInput.text,
+            'type' : deviceTypeInput.text,
+            'operating_system' : ShiftSettings.osName,
+            'os_version' : ShiftSettings.osVersion,
+            'number_of_sensors' : receptorsModel.length
+        }
+
+        var sensorsArray = [];
+        for (var i = 0; i < receptorsModel.length; ++i) {
+            var receptorInfoJson = receptorsModel[i].toJson();
+            sensorsArray.push(
+                        {
+                          'sensor_name' : receptorInfoJson['sensor_name'],
+                          'number_of_readings' : receptorInfoJson['number_of_readings'],
+                          'sensor_readings' : receptorInfoJson['sensor_readings']
+                        });
+        }
+
+        registerDeviceData['sensors'] = sensorsArray;
+        return JSON.stringify(registerDeviceData);
     }
 
     CheckBox {
@@ -65,7 +90,7 @@ ShiftRayPage {
         anchors.top: osVersionText.bottom
         anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
-        text: "Connected to Telemetry Broker: " + (TelemetryTransporter.isConnected ? "TRUE" : "FALSE")
+        text: "Connected to Telemetry Broker: " + (AmqpClient.isConnected ? "TRUE" : "FALSE")
     }
 
     Item {
@@ -161,29 +186,7 @@ ShiftRayPage {
 
         onClicked: {
             if(ShiftSettings.isUserRegistered) {
-                var registerDeviceData = {
-                    'user_name' : ShiftSettings.userName,
-                    'device_id' : ShiftSettings.deviceUUID,
-                    'name' : deviceNameInput.text,
-                    'type' : deviceTypeInput.text,
-                    'operating_system' : ShiftSettings.osName,
-                    'os_version' : ShiftSettings.osVersion,
-                    'number_of_sensors' : receptorsModel.length
-                }
-
-                var sensorsArray = [];
-                for (var i = 0; i < receptorsModel.length; ++i) {
-                    var receptorInfoJson = receptorsModel[i].toJson();
-                    sensorsArray.push(
-                                {
-                                  'sensor_name' : receptorInfoJson['sensor_name'],
-                                  'number_of_readings' : receptorInfoJson['number_of_readings'],
-                                  'sensor_readings' : receptorInfoJson['sensor_readings']
-                                });
-                }
-
-                registerDeviceData['sensors'] = sensorsArray;
-                RestClient.registerDevice(JSON.stringify(registerDeviceData));
+                RestClient.registerDevice(generateDetailsForRegister());
             }
             else {
                 console.log("User must be registered!");

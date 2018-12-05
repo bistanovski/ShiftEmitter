@@ -22,7 +22,7 @@ ShiftReceptor {
         onCompassReadingChanged: {
             rootReceptor.azimuthValue = azimuth
             rootReceptor.calibrationLevelValue = calibrationLevel
-            TelemetryTransporter.sendCompassTelemetry(azimuth, calibrationLevel)
+            AmqpClient.sendCompassTelemetry(azimuth, calibrationLevel)
         }
     }
 

@@ -1,44 +1,45 @@
-#ifndef TELEMETRYTRANSPORTER_HPP
-#define TELEMETRYTRANSPORTER_HPP
+#ifndef AMQPCLIENT_HPP
+#define AMQPCLIENT_HPP
 
 #include <QThread>
 #include <QObject>
-#include <QMqttClient>
-#include <QMqttTopicName>
+#include <qamqpqueue.h>
+#include <qamqpclient.h>
+#include <qamqpexchange.h>
 
 class QQmlContext;
 
-class TransportWorker : public QObject
+class AmqpWorker : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit TransportWorker(QObject *parent = nullptr);
-    virtual ~TransportWorker();
+    explicit AmqpWorker(QObject *parent = nullptr);
+    virtual ~AmqpWorker();
 
 signals:
     void connectionStatusChanged(const bool connected);
 
 public slots:
-    void initializeConnection(const QString brokerHost, const int brokerPort, const QString username, const QString password);
+    void initializeConnection(const QString hostname, const QString virtualHost, const int port, const QString username, const QString password);
     void onPublishNewMessage(const QString topicName, const QByteArray message);
 
 private:
-    QScopedPointer<QMqttClient> m_mqttCLient;
-    QMap<QString, QMqttTopicName> m_topicsMap;
+    QScopedPointer<QAmqpClient> m_amqpClient;
+    QScopedPointer<QAmqpExchange> m_amqpExchange;
 };
 
 
 
-class TelemetryTransporter : public QObject
+class AmqpClient : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit TelemetryTransporter(QObject *parent = nullptr);
-    virtual ~TelemetryTransporter();
+    explicit AmqpClient(QObject *parent = nullptr);
+    virtual ~AmqpClient();
 
-    void registerQmlTransporter(QQmlContext* ctxt);
+    void registerQmlClient(QQmlContext* ctxt);
 
     Q_PROPERTY(bool isConnected READ connectedToServer WRITE setConnectedToServer NOTIFY connectedToServerChanged)
 
@@ -65,4 +66,4 @@ private:
     QThread m_workerThread;
 };
 
-#endif // TELEMETRYTRANSPORTER_HPP
+#endif // AMQPCLIENT_HPP

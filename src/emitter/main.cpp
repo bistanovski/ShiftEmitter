@@ -7,6 +7,7 @@
 #include "Utility.hpp"
 #include "ShiftSettings.hpp"
 #include "network/RestClient.hpp"
+#include "network/AmqpClient.hpp"
 #include "models/ReceptorsModel.hpp"
 #include "receptor-bridge/ReceptorInfo.hpp"
 #include "network/TelemetryTransporter.hpp"
@@ -49,6 +50,9 @@ int main(int argc, char *argv[])
 
     TelemetryTransporter telTransporter;
     telTransporter.registerQmlTransporter(rootContext);
+
+    AmqpClient amqpClient;
+    amqpClient.registerQmlClient(rootContext);
 
     RestClient restClient;
     restClient.registerQmlRestClient(rootContext);
