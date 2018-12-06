@@ -48,22 +48,22 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     QQmlContext *rootContext = engine.rootContext();
 
-    TelemetryTransporter telTransporter;
-    telTransporter.registerQmlTransporter(rootContext);
-
-    AmqpClient amqpClient;
-    amqpClient.registerQmlClient(rootContext);
-
-    RestClient restClient;
-    restClient.registerQmlRestClient(rootContext);
-
-    ReceptorsModel receptorsModel;
     ShiftSettings settings;
     settings.registerQmlSettings(rootContext);
     settings.setDeviceUUID(ShiftUtils::generateDeviceUUID());
     settings.setOSName(ShiftUtils::operatingSystemName());
     settings.setOSVersion(ShiftUtils::operatingSystemVersion());
 
+    TelemetryTransporter telTransporter;
+    telTransporter.registerQmlTransporter(rootContext);
+
+    AmqpClient amqpClient(settings.getDeviceUUID());
+    amqpClient.registerQmlClient(rootContext);
+
+    RestClient restClient;
+    restClient.registerQmlRestClient(rootContext);
+
+    ReceptorsModel receptorsModel;
     auto registerComponentsAndModel = [&settings, &receptorsModel, rootContext]() {
         registerQuickComponents(settings.isSimulatorUsed());
         fillReceptorsModel(receptorsModel, rootContext, (settings.isSimulatorUsed() ? SimulatedReceptorBridge::fetchReceptorInfos(&receptorsModel) : ReceptorBridge::fetchReceptorInfos(&receptorsModel)));

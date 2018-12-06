@@ -17,7 +17,8 @@ const auto ORIENTATION = QStringLiteral("Orientation");
 const auto ROTATION = QStringLiteral("Rotation");
 const auto GYROSCOPE = QStringLiteral("Gyroscope");
 
-AmqpWorker::AmqpWorker(QObject *parent) : QObject(parent)
+AmqpWorker::AmqpWorker(QString deviceUUID, QObject *parent) : QObject(parent),
+    m_deviceUUID(deviceUUID)
 {
 
 }
@@ -25,6 +26,11 @@ AmqpWorker::AmqpWorker(QObject *parent) : QObject(parent)
 AmqpWorker::~AmqpWorker()
 {
     qDebug() << "~AmqpWorker";
+    for(auto *queue : m_queuesMap.data()->values())
+    {
+        queue->remove(QAmqpQueue::RemoveOption::roForce);
+        queue->deleteLater();
+    }
 }
 
 void AmqpWorker::initializeConnection(const QString hostname, const QString virtualHost, const int port, const QString username, const QString password)
@@ -40,12 +46,12 @@ void AmqpWorker::initializeConnection(const QString hostname, const QString virt
         qDebug() << "AmqpClient connected!";
         emit connectionStatusChanged(true);
 
-        m_amqpExchange.reset(m_amqpClient.data()->createExchange("SampleExchange"));
+        m_amqpExchange.reset(m_amqpClient.data()->createExchange(m_deviceUUID));
         QObject::connect(m_amqpExchange.data(), &QAmqpExchange::declared, [](){
             qDebug() << "Exchange declared!";
         });
-        m_amqpExchange->declare(QAmqpExchange::ExchangeType::Topic, QAmqpExchange::ExchangeOption::Durable);
-
+        m_amqpExchange->declare(QAmqpExchange::ExchangeType::Topic, QAmqpExchange::ExchangeOption::AutoDelete);
+        initializeQueues();
     });
     QObject::connect(m_amqpClient.data(), &QAmqpClient::disconnected, [this](){
         qDebug() << "AmqpClient disconnected!";
@@ -71,12 +77,46 @@ void AmqpWorker::onPublishNewMessage(const QString topicName, const QByteArray m
     m_amqpExchange->publish(message, topicName);
 }
 
+void AmqpWorker::initializeQueues()
+{
+    m_queuesMap.reset(new QMap<QString, QAmqpQueue *>());
+
+    auto *proxQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + PROXIMITY);
+    auto *tiltQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + TILT);
+    auto *ambLightQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + AMBIENT_LIGHT);
+    auto *lightQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + LIGHT);
+    auto *compassQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + COMPASS);
+    auto *acceleroQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + ACCELEROMETER);
+    auto *magnetQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + MAGNETOMETER);
+    auto *orientQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + ORIENTATION);
+    auto *rotationQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + ROTATION);
+    auto *gyrosQueue = m_amqpClient.data()->createQueue(m_deviceUUID + "_" + GYROSCOPE);
+
+    m_queuesMap->insert(PROXIMITY, proxQueue);
+    m_queuesMap->insert(TILT, tiltQueue);
+    m_queuesMap->insert(AMBIENT_LIGHT, ambLightQueue);
+    m_queuesMap->insert(LIGHT, lightQueue);
+    m_queuesMap->insert(COMPASS, compassQueue);
+    m_queuesMap->insert(ACCELEROMETER, acceleroQueue);
+    m_queuesMap->insert(MAGNETOMETER, magnetQueue);
+    m_queuesMap->insert(ORIENTATION, orientQueue);
+    m_queuesMap->insert(ROTATION, rotationQueue);
+    m_queuesMap->insert(GYROSCOPE, gyrosQueue);
 
 
-AmqpClient::AmqpClient(QObject *parent) : QObject(parent)
+    for(auto it = m_queuesMap.data()->begin(); it != m_queuesMap.data()->end(); ++it)
+    {
+        it.value()->declare(QAmqpQueue::QueueOption::AutoDelete);
+        it.value()->bind(m_amqpExchange.data(), it.key());
+    }
+}
+
+
+
+AmqpClient::AmqpClient(QString deviceUUID, QObject *parent) : QObject(parent)
 {
     ShiftSettings settings;
-    AmqpWorker *worker = new AmqpWorker();
+    auto *worker = new AmqpWorker(deviceUUID);
 
     QObject::connect(worker, &AmqpWorker::connectionStatusChanged, this, &AmqpClient::setConnectedToServer);
     QObject::connect(this, &AmqpClient::publishNewMessage, worker, &AmqpWorker::onPublishNewMessage);

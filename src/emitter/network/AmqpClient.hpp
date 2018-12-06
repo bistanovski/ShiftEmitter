@@ -14,19 +14,24 @@ class AmqpWorker : public QObject
     Q_OBJECT
 
 public:
-    explicit AmqpWorker(QObject *parent = nullptr);
+    explicit AmqpWorker(QString deviceUUID, QObject *parent = nullptr);
     virtual ~AmqpWorker();
-
-signals:
-    void connectionStatusChanged(const bool connected);
 
 public slots:
     void initializeConnection(const QString hostname, const QString virtualHost, const int port, const QString username, const QString password);
     void onPublishNewMessage(const QString topicName, const QByteArray message);
 
 private:
+    void initializeQueues();
+
+signals:
+    void connectionStatusChanged(const bool connected);
+
+private:
+    QString m_deviceUUID;
     QScopedPointer<QAmqpClient> m_amqpClient;
     QScopedPointer<QAmqpExchange> m_amqpExchange;
+    QScopedPointer<QMap<QString, QAmqpQueue *>> m_queuesMap;
 };
 
 
@@ -36,7 +41,7 @@ class AmqpClient : public QObject
     Q_OBJECT
 
 public:
-    explicit AmqpClient(QObject *parent = nullptr);
+    explicit AmqpClient(QString deviceUUID, QObject *parent = nullptr);
     virtual ~AmqpClient();
 
     void registerQmlClient(QQmlContext* ctxt);
