@@ -20,7 +20,7 @@ ShiftReceptor {
 
         onLightReadingChanged: {
             rootReceptor.luxValue = luxValue
-            AmqpClient.sendLightTelemetry(luxValue)
+            MqttClient.sendLightTelemetry(luxValue)
         }
     }
 

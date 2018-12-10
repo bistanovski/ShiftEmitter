@@ -26,7 +26,7 @@ ShiftReceptor {
             rootReceptor.yValue = yValue
             rootReceptor.zValue = zValue
 
-            AmqpClient.sendRotationTelemetry(xValue, yValue, zValue);
+            MqttClient.sendRotationTelemetry(xValue, yValue, zValue);
         }
     }
 

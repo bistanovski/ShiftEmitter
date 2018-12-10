@@ -1,5 +1,5 @@
-#ifndef TELEMETRYTRANSPORTER_HPP
-#define TELEMETRYTRANSPORTER_HPP
+#ifndef MQTTCLIENT_HPP
+#define MQTTCLIENT_HPP
 
 #include <QThread>
 #include <QObject>
@@ -8,13 +8,13 @@
 
 class QQmlContext;
 
-class TransportWorker : public QObject
+class MqttWorker : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit TransportWorker(QObject *parent = nullptr);
-    virtual ~TransportWorker();
+    explicit MqttWorker(QString deviceUUID, QObject *parent = nullptr);
+    virtual ~MqttWorker();
 
 signals:
     void connectionStatusChanged(const bool connected);
@@ -30,13 +30,13 @@ private:
 
 
 
-class TelemetryTransporter : public QObject
+class MqttClient : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit TelemetryTransporter(QObject *parent = nullptr);
-    virtual ~TelemetryTransporter();
+    explicit MqttClient(QString deviceUUID, QObject *parent = nullptr);
+    virtual ~MqttClient();
 
     void registerQmlTransporter(QQmlContext* ctxt);
 
@@ -65,4 +65,4 @@ private:
     QThread m_workerThread;
 };
 
-#endif // TELEMETRYTRANSPORTER_HPP
+#endif // MQTTCLIENT_HPP

@@ -10,7 +10,7 @@
 #include "network/AmqpClient.hpp"
 #include "models/ReceptorsModel.hpp"
 #include "receptor-bridge/ReceptorInfo.hpp"
-#include "network/TelemetryTransporter.hpp"
+#include "network/MqttClient.hpp"
 #include "receptor-bridge/ReceptorBridge.hpp"
 #include "simulator/SimulatedReceptorBridge.hpp"
 
@@ -54,11 +54,11 @@ int main(int argc, char *argv[])
     settings.setOSName(ShiftUtils::operatingSystemName());
     settings.setOSVersion(ShiftUtils::operatingSystemVersion());
 
-    TelemetryTransporter telTransporter;
-    telTransporter.registerQmlTransporter(rootContext);
+    MqttClient mqttClient(settings.getDeviceUUID());
+    mqttClient.registerQmlTransporter(rootContext);
 
-    AmqpClient amqpClient(settings.getDeviceUUID());
-    amqpClient.registerQmlClient(rootContext);
+//    AmqpClient amqpClient(settings.getDeviceUUID());
+//    amqpClient.registerQmlClient(rootContext);
 
     RestClient restClient;
     restClient.registerQmlRestClient(rootContext);

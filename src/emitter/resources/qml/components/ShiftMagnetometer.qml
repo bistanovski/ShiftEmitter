@@ -26,7 +26,7 @@ ShiftReceptor {
             rootReceptor.yFluxValue = yFlux
             rootReceptor.zFluxValue = zFlux
             rootReceptor.calibrationLevel = calibrationLevel
-            AmqpClient.sendMagnetometerTelemetry(xFlux, yFlux, zFlux, calibrationLevel)
+            MqttClient.sendMagnetometerTelemetry(xFlux, yFlux, zFlux, calibrationLevel)
         }
     }
 

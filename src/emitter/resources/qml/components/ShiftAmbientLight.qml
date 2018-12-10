@@ -32,7 +32,7 @@ ShiftReceptor {
 
         onLightLevelChanged: {
             rootReceptor.lightLevel = lightLevelToString(lightLevel)
-            AmqpClient.sendAmbientLightTelemetry(lightLevel)
+            MqttClient.sendAmbientLightTelemetry(lightLevel)
         }
     }
 

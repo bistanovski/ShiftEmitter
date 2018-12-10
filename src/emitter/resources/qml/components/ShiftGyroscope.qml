@@ -26,7 +26,7 @@ ShiftReceptor {
             rootReceptor.yValue = yValue
             rootReceptor.zValue = zValue
 
-            AmqpClient.sendGyroscopeTelemetry(xValue, yValue, zValue);
+            MqttClient.sendGyroscopeTelemetry(xValue, yValue, zValue);
         }
     }
 

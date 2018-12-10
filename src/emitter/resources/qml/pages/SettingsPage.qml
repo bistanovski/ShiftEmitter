@@ -90,7 +90,7 @@ ShiftRayPage {
         anchors.top: osVersionText.bottom
         anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
-        text: "Connected to Telemetry Broker: " + (AmqpClient.isConnected ? "TRUE" : "FALSE")
+        text: "Connected to Telemetry Broker: " + (MqttClient.isConnected ? "TRUE" : "FALSE")
     }
 
     Item {
