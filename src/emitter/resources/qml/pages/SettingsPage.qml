@@ -9,7 +9,7 @@ ShiftRayPage {
         ShiftSettings.telemetryHost = hostInput.text;
         ShiftSettings.telemetryPort = parseInt(portInput.text);
         ShiftSettings.deviceName = deviceNameInput.text;
-        ShiftSettings.deviceType = deviceTypeInput.text;
+        ShiftSettings.deviceType = deviceTypeInput.currentText;
     }
 
     function generateDetailsForRegister() {
@@ -17,7 +17,7 @@ ShiftRayPage {
             'user_name' : ShiftSettings.userName,
             'device_id' : ShiftSettings.deviceUUID,
             'name' : deviceNameInput.text,
-            'type' : deviceTypeInput.text,
+            'type' : deviceTypeInput.currentText,
             'operating_system' : ShiftSettings.osName,
             'os_version' : ShiftSettings.osVersion,
             'number_of_sensors' : receptorsModel.length
@@ -157,15 +157,13 @@ ShiftRayPage {
         anchors.top: deviceNameHolder.bottom
         anchors.topMargin: 5
 
-        TextField {
+        ComboBox {
             id: deviceTypeInput
             width: parent.width/2
             height: parent.height
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
-            horizontalAlignment: TextField.AlignHCenter
-            text: ShiftSettings.deviceType
-            placeholderText: qsTr("Device type")
+            model: [ "DESKTOP", "MOBILE", "EMBEDDED" ]
         }
     }
 
@@ -223,11 +221,10 @@ ShiftRayPage {
         target: RestClient
         onRegisterDeviceResponse: {
             if(succeed) {
-                console.log("Succeed:", succeed);
-                console.log("Data:", data);
+                showInfoMessage(JSON.stringify(JSON.parse(data).data));
             }
             else {
-                console.log("ERROR:", data);
+                showErrorMessage(JSON.stringify(JSON.parse(data).data));
             }
         }
     }

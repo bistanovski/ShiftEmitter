@@ -16,7 +16,7 @@ Item {
 
     Text {
         id: connectedText
-        text: rootItem.isConnectedToBackend
+        text: "Connected to backend: " + rootItem.isConnectedToBackend
         anchors.top: parent.top
         anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
@@ -24,7 +24,7 @@ Item {
 
     Text {
         id: listeningText
-        text: rootItem.isReceptorListening
+        text: "Receptor listening: " + rootItem.isReceptorListening
         anchors.top: connectedText.bottom
         anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter

@@ -6,7 +6,7 @@
 FakeRotationReading::FakeRotationReading(QObject *parent) : QObject(parent)
 {
     m_timer.reset(new QTimer(this));
-    m_timer->setInterval(100);
+    m_timer->setInterval(1000);
     m_randomGenerator.reset(new QRandomGenerator());
 }
 

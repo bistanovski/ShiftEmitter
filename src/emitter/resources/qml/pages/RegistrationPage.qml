@@ -139,11 +139,11 @@ ShiftRayPage {
         target: RestClient
         onRegisterUserResponse : {
             if(succeed) {
-                console.log("Success:", data);
                 rootPage.saveUserToSettings();
+                showInfoMessage(JSON.stringify(JSON.parse(data).data));
             }
             else {
-                console.log("Error!");
+                showErrorMessage(JSON.stringify(JSON.parse(data).data));
             }
         }
     }
