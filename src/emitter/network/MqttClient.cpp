@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QString>
 #include <QQmlContext>
+#include <QJsonDocument>
 #include "ShiftSettings.hpp"
 #include "receptor-bridge/receptors/Receptor.hpp"
 
@@ -97,62 +98,83 @@ void MqttClient::registerQmlTransporter(QQmlContext *ctxt)
 
 void MqttClient::sendAccelerometerTelemetry(const qreal xValue, const qreal yValue, const qreal zValue)
 {
-    const auto pubMessage = QString("xVal:" + QString::number(xValue) + ";yVal:" + QString::number(yValue) +";zVal:" + QString::number(zValue));
-    emit publishNewMessage(ACCELEROMETER, pubMessage.toUtf8());
+    QVariantMap map;
+    map["xVal"] = xValue;
+    map["yVal"] = yValue;
+    map["zVal"] = zValue;
+    emit publishNewMessage(ACCELEROMETER, QJsonDocument::fromVariant(map).toJson());
 }
 
 void MqttClient::sendAmbientLightTelemetry(const int lightLevel)
 {
-    const auto pubMessage = QString("lightLevel:" + QString::number(lightLevel));
-    emit publishNewMessage(AMBIENT_LIGHT, pubMessage.toUtf8());
+    QVariantMap map;
+    map["lightLevel"] = lightLevel;
+    emit publishNewMessage(AMBIENT_LIGHT, QJsonDocument::fromVariant(map).toJson());
 }
 
 void MqttClient::sendCompassTelemetry(const qreal azimuth, const qreal calibrationLevel)
 {
-    const auto pubMessage = QString("azimuth:" + QString::number(azimuth) + ";calibrationLevel:" + QString::number(calibrationLevel));
-    emit publishNewMessage(COMPASS, pubMessage.toUtf8());
+    QVariantMap map;
+    map["azimuth"] = azimuth;
+    map["calibrationLevel"] = calibrationLevel;
+    emit publishNewMessage(COMPASS, QJsonDocument::fromVariant(map).toJson());
 }
 
 void MqttClient::sendLightTelemetry(const qreal luxValue)
 {
-    const auto pubMessage = QString("luxValue:" + QString::number(luxValue));
-    emit publishNewMessage(LIGHT, pubMessage.toUtf8());
+    QVariantMap map;
+    map["luxValue"] = luxValue;
+    emit publishNewMessage(LIGHT, QJsonDocument::fromVariant(map).toJson());
 }
 
 void MqttClient::sendMagnetometerTelemetry(const qreal xFlux, const qreal yFlux, const qreal zFlux, const qreal calibrationLevel)
 {
-    const auto pubMessage = QString("xFlux:" + QString::number(xFlux) + ";yFlux:" + QString::number(yFlux) + ";zFlux:" + QString::number(zFlux) + ";calibrationLevel:" + QString::number(calibrationLevel));
-    emit publishNewMessage(MAGNETOMETER, pubMessage.toUtf8());
+    QVariantMap map;
+    map["xFlux"] = xFlux;
+    map["yFlux"] = yFlux;
+    map["zFlux"] = zFlux;
+    map["calibrationLevel"] = QString::number(calibrationLevel);
+    emit publishNewMessage(MAGNETOMETER, QJsonDocument::fromVariant(map).toJson());
 }
 
 void MqttClient::sendOrientationTelemetry(const int orientation)
 {
-    const auto pubMessage = QString("orientation:" + QString::number(orientation));
-    emit publishNewMessage(ORIENTATION, pubMessage.toUtf8());
+    QVariantMap map;
+    map["orientation"] = orientation;
+    emit publishNewMessage(ORIENTATION, QJsonDocument::fromVariant(map).toJson());
 }
 
 void MqttClient::sendProximityTelemetry(const bool close)
 {
-    const auto pubMessage = QString("close:" + QString(close ? "true" : "false"));
-    emit publishNewMessage(PROXIMITY, pubMessage.toUtf8());
+    QVariantMap map;
+    map["close"] = close;
+    emit publishNewMessage(PROXIMITY, QJsonDocument::fromVariant(map).toJson());
 }
 
 void MqttClient::sendTiltTelemetry(const qreal xRotation, const qreal yRotation)
 {
-    const auto pubMessage = QString("xRotation:" + QString::number(xRotation) + ";yRotation:" + QString::number(yRotation));
-    emit publishNewMessage(TILT, pubMessage.toUtf8());
+    QVariantMap map;
+    map["xRotation"] = xRotation;
+    map["yRotation"] = yRotation;
+    emit publishNewMessage(TILT, QJsonDocument::fromVariant(map).toJson());
 }
 
 void MqttClient::sendRotationTelemetry(const qreal xValue, const qreal yValue, const qreal zValue)
 {
-    const auto pubMessage = QString("xVal:" + QString::number(xValue) + ";yVal:" + QString::number(yValue) +";zVal:" + QString::number(zValue));
-    emit publishNewMessage(ROTATION, pubMessage.toUtf8());
+    QVariantMap map;
+    map["xVal"] = xValue;
+    map["yVal"] = yValue;
+    map["zVal"] = zValue;
+    emit publishNewMessage(ROTATION, QJsonDocument::fromVariant(map).toJson());
 }
 
 void MqttClient::sendGyroscopeTelemetry(const qreal xValue, const qreal yValue, const qreal zValue)
 {
-    const auto pubMessage = QString("xVal:" + QString::number(xValue) + ";yVal:" + QString::number(yValue) +";zVal:" + QString::number(zValue));
-    emit publishNewMessage(GYROSCOPE, pubMessage.toUtf8());
+    QVariantMap map;
+    map["xVal"] = xValue;
+    map["yVal"] = yValue;
+    map["zVal"] = zValue;
+    emit publishNewMessage(GYROSCOPE, QJsonDocument::fromVariant(map).toJson());
 }
 
 bool MqttClient::connectedToServer() const
