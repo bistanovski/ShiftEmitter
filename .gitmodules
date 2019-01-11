@@ -3,4 +3,4 @@
 	url = https://github.com/mbroadst/qamqp.git
 [submodule "external/libqtmqtt/qtmqtt"]
 	path = external/libqtmqtt/qtmqtt
-	url = https://github.com/qt/qtmqtt
+	url = https://github.com/qt/qtmqtt.git
