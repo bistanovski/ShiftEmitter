@@ -2,13 +2,14 @@ include($$PRI_PATH/defines.pri)
 include($$PRI_PATH/platform.pri)
 include(sources.pri)
 
-QT += quick mqtt
+QT += quick
 
 TEMPLATE = app
 TARGET   = ShiftEmitter
 DESTDIR  = $${ROOT_BUILD}
 INCLUDEPATH += $$SRC_PATH
 INCLUDEPATH += $$EXTERNAL_PATH/libqamqp/qamqp/src
+INCLUDEPATH += $$EXTERNAL_PATH/libqtmqtt/include
 
 #Simulator
 LIBS += -L$${ROOT_BUILD}/libs -lsimulator
@@ -18,6 +19,9 @@ LIBS += -L$${ROOT_BUILD}/libs -lreceptor-bridge
 
 #libqamqp
 LIBS += -L$${ROOT_BUILD}/libs -lqamqp
+
+#libqtmqtt
+LIBS += -L$${ROOT_BUILD}/libs -lQt5Mqtt
 
 RESOURCES += \
     resources/res.qrc

@@ -13,6 +13,9 @@ simulator.depends = receptor-bridge
 SUBDIRS += $$EXTERNAL_PATH/libqamqp
 libqamqp.subdir = $$EXTERNAL_PATH/libqamqp
 
+SUBDIRS += $$EXTERNAL_PATH/libqtmqtt
+libqtmqtt.subdir = $$EXTERNAL_PATH/libqtmqtt
+
 SUBDIRS += $$SRC_PATH/emitter
 emitter.subdir   = $$SRC_PATH/emitter
-emitter.depends  = receptor-bridge simulator libqamqp
+emitter.depends  = receptor-bridge simulator libqamqp libqtmqtt

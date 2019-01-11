@@ -3,8 +3,8 @@
 
 #include <QThread>
 #include <QObject>
-#include <QMqttClient>
-#include <QMqttTopicName>
+#include <QtMqtt/qmqttclient.h>
+#include <QtMqtt/qmqtttopicname.h>
 
 class QQmlContext;
 
