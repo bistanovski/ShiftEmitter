@@ -1,4 +1,4 @@
-linux {
+linux:!android {
     include($$PRI_PATH/platform/linux.pri)
 }
 

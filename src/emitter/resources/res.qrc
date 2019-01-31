@@ -29,7 +29,6 @@
         <file>qml/components/ShiftMagnetometer.qml</file>
         <file>qml/elements/CheckableStreamButton.qml</file>
         <file>qml/pages/RegistrationPage.qml</file>
-        <file>scripts/RestClient.js</file>
         <file>qml/components/ShiftRotation.qml</file>
         <file>qml/components/ShiftGyroscope.qml</file>
     </qresource>

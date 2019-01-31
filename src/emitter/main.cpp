@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
 {
 
 #ifdef SHIFT_ANDROID
-    qputenv("QT_SCALE_FACTOR", "0.85");
+    qputenv("QT_SCALE_FACTOR", "0.90");
 #endif
 
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

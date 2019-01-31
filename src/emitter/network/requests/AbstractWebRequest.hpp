@@ -28,7 +28,6 @@ public:
 
     int getHTTPCode() const;
     QString signature() const;
-
     QByteArray readReplyData();
 
 protected:
